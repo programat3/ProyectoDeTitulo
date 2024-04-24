@@ -1,3 +1,4 @@
+import 'package:botiquin_electronico/signed_users/escanear_dummy.dart';
 import 'package:botiquin_electronico/signed_users/new_botiquin.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +31,9 @@ class _MyAppState extends State<Menu> {
             ),
             ElevatedButton(
               onPressed: () {
-                //TODO: Add the code to navigate to the OCR to add medicine
+                Navigator.push(context, 
+                MaterialPageRoute(builder: (context)=> const EscaneoDummy())
+                );
               },
               child: const Text('Escanear Medicamento'),
             ),
@@ -38,5 +41,5 @@ class _MyAppState extends State<Menu> {
         ),
       ),
     );
-      }
+  }
 }
