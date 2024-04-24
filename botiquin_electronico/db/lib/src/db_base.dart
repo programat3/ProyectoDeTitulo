@@ -45,6 +45,14 @@ class Database {
       where: UserWhereUniqueInput(id: id),
     );
   }
+
+  Future<User?> getUserbyEmail({
+    required String email,
+  }) async {
+    return _db.user.findUnique(
+      where: UserWhereUniqueInput(email: email),
+    );
+  }
 }
 
 String _hash(String password){
