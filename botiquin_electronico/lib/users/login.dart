@@ -93,33 +93,28 @@ class MyCustomFormState extends State<MyCustomForm> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async{
                   // Validate returns true if the form is valid, or false otherwise.
                   if (_formKey.currentState!.validate()) {
-                    http.get(
-                      Uri.parse('http://10.0.2.2:8080/users/$email'),
-                      headers: <String, String>{
-                        'Content-Type': 'application/json; charset=UTF-8',
-                      },
-                    ).then((value){
-                      if(value.statusCode == 200){
-                        final user = jsonDecode(value.body);
-                        if(user['password'] == sha256.convert(utf8.encode(password))){
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Inicio de sesión exitoso')),
-                          );
-                        }else{
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Contraseña incorrecta')),
-                          );
-                        }
+                    var response = await http.get(
+                      Uri.parse('http://10.0.2.2:8080/users/$email')
+                    );
+                    if(response.statusCode == 200){
+                      final user = jsonDecode(response.body);
+                      if(user['password'] == sha256.convert(utf8.encode(password)).toString()){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Inicio de sesión exitoso')),
+                        );
                       }else{
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Usuario no encontrado')),
+                          const SnackBar(content: Text('Contraseña incorrecta')),
                         );
                       }
-                    
-                    });
+                    }else{
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Usuario no encontrado')),
+                      );
+                    }
                   }
                 },
                 child: const Text('Entrar'),
