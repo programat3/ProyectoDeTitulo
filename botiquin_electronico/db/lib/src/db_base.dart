@@ -53,6 +53,39 @@ class Database {
       where: UserWhereUniqueInput(email: email),
     );
   }
+
+  Future<Botiquin?> getBotiquinByEmail({
+    required String email,
+  }) async {
+    var user = await _db.user.findUnique(
+      where: UserWhereUniqueInput(email: email),
+    );
+    if (user == null) {
+      return null;
+    }
+    else{
+      return _db.botiquin.findUnique(
+        where: BotiquinWhereUniqueInput(userId: user.id),
+      );
+    }
+  }
+
+  Future<Botiquin?> createBotiquin({
+    required String email,
+    required String nombre,
+  }) async {
+    var user = await _db.user.findUnique(
+      where: UserWhereUniqueInput(email: email),
+    );
+    if (user == null) {
+      return null;
+    }
+    else{
+      return _db.botiquin.create(
+        data:BotiquinCreateInput(nombre: nombre, user: UserCreateNestedOneWithoutBotiquinInput(connect: UserWhereUniqueInput(id: user.id)),
+      ));
+    }
+  }
 }
 
 String _hash(String password){

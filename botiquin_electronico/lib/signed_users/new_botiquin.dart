@@ -1,16 +1,15 @@
-import 'package:botiquin_electronico/signed_users/menu.dart';
-import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:crypto/crypto.dart';
+import 'package:flutter/material.dart';
 
 
-class Login extends StatelessWidget {
-  const Login({super.key});
+
+class NewBotiquin extends StatelessWidget {
+  const NewBotiquin({super.key});
 
   @override
   Widget build(BuildContext context) {
-    const appTitle = 'Inicia Sesión con tu correo electrónico';
+    const appTitle = 'Crea tu botiquín';
 
     return MaterialApp(
       title: appTitle,
@@ -23,8 +22,6 @@ class Login extends StatelessWidget {
     );
   }
 }
-
-// Create a Form widget.
 class MyCustomForm extends StatefulWidget {
   const MyCustomForm({super.key});
 
@@ -33,22 +30,13 @@ class MyCustomForm extends StatefulWidget {
     return MyCustomFormState();
   }
 }
-
-// Create a corresponding State class.
-// This class holds data related to the form.
 class MyCustomFormState extends State<MyCustomForm> {
-  // Create a global key that uniquely identifies the Form widget
-  // and allows validation of the form.
-  //
-  // Note: This is a GlobalKey<FormState>,
-  // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     var email;
-    var password;
-    // Build a Form widget using the _formKey created above.
+    var name;
     return Form(
       key: _formKey,
       child: Padding(
@@ -74,55 +62,43 @@ class MyCustomFormState extends State<MyCustomForm> {
             ),
             TextFormField(
               decoration: const InputDecoration(
-                labelText: 'Contraseña',
-                hintText: 'Ingrese su contraseña',
+                labelText: 'Nombre del botiquín',
+                hintText: 'Ingrese el nombre de su botiquín',
                 icon: const Padding(
                   padding: const EdgeInsets.only(top: 15.0),
-                        child: const Icon(Icons.lock))),
-                obscureText: true,
-              
+                        child: const Icon(Icons.medical_services))),
               // The validator receives the text that the user has entered.
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Porfavor ingrese su contraseña';
+                  return 'Porfavor ingrese su email';
                 }
-                password = value;
+                name = value;
                 return null;
               },
-        
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: ElevatedButton(
-                onPressed: () async{
+                onPressed: () {
                   // Validate returns true if the form is valid, or false otherwise.
                   if (_formKey.currentState!.validate()) {
-                    var response = await http.get(
-                      Uri.parse('http://10.0.2.2:8080/users/$email')
+                    // If the form is valid, display a snackbar. In the real world,
+                    // you'd often call a server or save the information in a database.
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Processing Data')),
                     );
-                    if(response.statusCode == 200){
-                      final user = jsonDecode(response.body);
-                      if(user['password'] == sha256.convert(utf8.encode(password)).toString()){
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Inicio de sesión exitoso')),
-                        );
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const Menu()),
-                        );
-                      }else{
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Contraseña incorrecta')),
-                        );
-                      }
-                    }else{
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Usuario no encontrado')),
-                      );
-                    }
+                    http.post(
+                      Uri.parse('http://10.0.2.2:8080/users/$email'),
+                      headers: <String, String>{
+                        'Content-Type': 'application/json; charset=UTF-8',
+                      },
+                      body: jsonEncode(<String, String>{
+                        'nombre': name,
+                      }),
+                    );
                   }
                 },
-                child: const Text('Entrar'),
+                child: const Text('Submit'),
               ),
             ),
           ],
