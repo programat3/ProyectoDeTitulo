@@ -32,7 +32,7 @@ class _MyAppState extends State<Menu> {
             ElevatedButton(
               onPressed: () {
                 Navigator.push(context, 
-                MaterialPageRoute(builder: (context)=> const EscaneoDummy())
+                MaterialPageRoute(builder: (context)=> TextRecognizerView())
                 );
               },
               child: const Text('Escanear Medicamento'),
