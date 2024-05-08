@@ -10,7 +10,9 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://postgres:TrabajoDeTitulo2024@localhost:5432/trabajodetitulo?schema=public"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+
 }
 
 model User {
@@ -32,7 +34,9 @@ model Botiquin {
 model Medicamento {
   id        String   @id @default(cuid())
   nombre    String
+  fechaVencimiento  DateTime
   cantidad  Int
+  SKU       String @unique
   botiquin  Botiquin @relation(fields: [botiquinId], references: [id])
   botiquinId String
 }

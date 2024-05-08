@@ -33,11 +33,16 @@ enum BotiquinScalarFieldEnum implements _i1.PrismaEnum {
 enum MedicamentoScalarFieldEnum implements _i1.PrismaEnum {
   id,
   nombre,
+  fechaVencimiento,
   cantidad,
+  @JsonValue('SKU')
+  sku(r'SKU'),
   botiquinId;
 
+  const MedicamentoScalarFieldEnum([this.originalName]);
+
   @override
-  String? get originalName => null;
+  final String? originalName;
 }
 
 enum SortOrder implements _i1.PrismaEnum {
@@ -414,7 +419,9 @@ class MedicamentoWhereInput implements _i1.JsonSerializable {
     this.NOT,
     this.id,
     this.nombre,
+    this.fechaVencimiento,
     this.cantidad,
+    this.sku,
     this.botiquinId,
     this.botiquin,
   });
@@ -432,7 +439,12 @@ class MedicamentoWhereInput implements _i1.JsonSerializable {
 
   final StringFilter? nombre;
 
+  final DateTimeFilter? fechaVencimiento;
+
   final IntFilter? cantidad;
+
+  @JsonKey(name: r'SKU')
+  final StringFilter? sku;
 
   final StringFilter? botiquinId;
 
@@ -447,7 +459,9 @@ class MedicamentoOrderByWithRelationInput implements _i1.JsonSerializable {
   const MedicamentoOrderByWithRelationInput({
     this.id,
     this.nombre,
+    this.fechaVencimiento,
     this.cantidad,
+    this.sku,
     this.botiquinId,
     this.botiquin,
   });
@@ -460,7 +474,12 @@ class MedicamentoOrderByWithRelationInput implements _i1.JsonSerializable {
 
   final SortOrder? nombre;
 
+  final SortOrder? fechaVencimiento;
+
   final SortOrder? cantidad;
+
+  @JsonKey(name: r'SKU')
+  final SortOrder? sku;
 
   final SortOrder? botiquinId;
 
@@ -475,10 +494,12 @@ class MedicamentoOrderByWithRelationInput implements _i1.JsonSerializable {
 class MedicamentoWhereUniqueInput implements _i1.JsonSerializable {
   const MedicamentoWhereUniqueInput({
     this.id,
+    this.sku,
     this.AND,
     this.OR,
     this.NOT,
     this.nombre,
+    this.fechaVencimiento,
     this.cantidad,
     this.botiquinId,
     this.botiquin,
@@ -489,6 +510,9 @@ class MedicamentoWhereUniqueInput implements _i1.JsonSerializable {
 
   final String? id;
 
+  @JsonKey(name: r'SKU')
+  final String? sku;
+
   final Iterable<MedicamentoWhereInput>? AND;
 
   final Iterable<MedicamentoWhereInput>? OR;
@@ -496,6 +520,8 @@ class MedicamentoWhereUniqueInput implements _i1.JsonSerializable {
   final Iterable<MedicamentoWhereInput>? NOT;
 
   final StringFilter? nombre;
+
+  final DateTimeFilter? fechaVencimiento;
 
   final IntFilter? cantidad;
 
@@ -512,7 +538,9 @@ class MedicamentoOrderByWithAggregationInput implements _i1.JsonSerializable {
   const MedicamentoOrderByWithAggregationInput({
     this.id,
     this.nombre,
+    this.fechaVencimiento,
     this.cantidad,
+    this.sku,
     this.botiquinId,
     this.$count,
     this.$avg,
@@ -529,7 +557,12 @@ class MedicamentoOrderByWithAggregationInput implements _i1.JsonSerializable {
 
   final SortOrder? nombre;
 
+  final SortOrder? fechaVencimiento;
+
   final SortOrder? cantidad;
+
+  @JsonKey(name: r'SKU')
+  final SortOrder? sku;
 
   final SortOrder? botiquinId;
 
@@ -562,7 +595,9 @@ class MedicamentoScalarWhereWithAggregatesInput
     this.NOT,
     this.id,
     this.nombre,
+    this.fechaVencimiento,
     this.cantidad,
+    this.sku,
     this.botiquinId,
   });
 
@@ -580,7 +615,12 @@ class MedicamentoScalarWhereWithAggregatesInput
 
   final StringWithAggregatesFilter? nombre;
 
+  final DateTimeWithAggregatesFilter? fechaVencimiento;
+
   final IntWithAggregatesFilter? cantidad;
+
+  @JsonKey(name: r'SKU')
+  final StringWithAggregatesFilter? sku;
 
   final StringWithAggregatesFilter? botiquinId;
 
@@ -933,7 +973,9 @@ class MedicamentoCreateInput implements _i1.JsonSerializable {
   const MedicamentoCreateInput({
     this.id,
     required this.nombre,
+    required this.fechaVencimiento,
     required this.cantidad,
+    required this.sku,
     required this.botiquin,
   });
 
@@ -944,7 +986,12 @@ class MedicamentoCreateInput implements _i1.JsonSerializable {
 
   final String nombre;
 
+  final DateTime fechaVencimiento;
+
   final int cantidad;
+
+  @JsonKey(name: r'SKU')
+  final String sku;
 
   final BotiquinCreateNestedOneWithoutMedicamentosInput botiquin;
 
@@ -957,7 +1004,9 @@ class MedicamentoUncheckedCreateInput implements _i1.JsonSerializable {
   const MedicamentoUncheckedCreateInput({
     this.id,
     required this.nombre,
+    required this.fechaVencimiento,
     required this.cantidad,
+    required this.sku,
     required this.botiquinId,
   });
 
@@ -968,7 +1017,12 @@ class MedicamentoUncheckedCreateInput implements _i1.JsonSerializable {
 
   final String nombre;
 
+  final DateTime fechaVencimiento;
+
   final int cantidad;
+
+  @JsonKey(name: r'SKU')
+  final String sku;
 
   final String botiquinId;
 
@@ -982,7 +1036,9 @@ class MedicamentoUpdateInput implements _i1.JsonSerializable {
   const MedicamentoUpdateInput({
     this.id,
     this.nombre,
+    this.fechaVencimiento,
     this.cantidad,
+    this.sku,
     this.botiquin,
   });
 
@@ -993,7 +1049,12 @@ class MedicamentoUpdateInput implements _i1.JsonSerializable {
 
   final StringFieldUpdateOperationsInput? nombre;
 
+  final DateTimeFieldUpdateOperationsInput? fechaVencimiento;
+
   final IntFieldUpdateOperationsInput? cantidad;
+
+  @JsonKey(name: r'SKU')
+  final StringFieldUpdateOperationsInput? sku;
 
   final BotiquinUpdateOneRequiredWithoutMedicamentosNestedInput? botiquin;
 
@@ -1006,7 +1067,9 @@ class MedicamentoUncheckedUpdateInput implements _i1.JsonSerializable {
   const MedicamentoUncheckedUpdateInput({
     this.id,
     this.nombre,
+    this.fechaVencimiento,
     this.cantidad,
+    this.sku,
     this.botiquinId,
   });
 
@@ -1017,7 +1080,12 @@ class MedicamentoUncheckedUpdateInput implements _i1.JsonSerializable {
 
   final StringFieldUpdateOperationsInput? nombre;
 
+  final DateTimeFieldUpdateOperationsInput? fechaVencimiento;
+
   final IntFieldUpdateOperationsInput? cantidad;
+
+  @JsonKey(name: r'SKU')
+  final StringFieldUpdateOperationsInput? sku;
 
   final StringFieldUpdateOperationsInput? botiquinId;
 
@@ -1031,7 +1099,9 @@ class MedicamentoCreateManyInput implements _i1.JsonSerializable {
   const MedicamentoCreateManyInput({
     this.id,
     required this.nombre,
+    required this.fechaVencimiento,
     required this.cantidad,
+    required this.sku,
     required this.botiquinId,
   });
 
@@ -1042,7 +1112,12 @@ class MedicamentoCreateManyInput implements _i1.JsonSerializable {
 
   final String nombre;
 
+  final DateTime fechaVencimiento;
+
   final int cantidad;
+
+  @JsonKey(name: r'SKU')
+  final String sku;
 
   final String botiquinId;
 
@@ -1055,7 +1130,9 @@ class MedicamentoUpdateManyMutationInput implements _i1.JsonSerializable {
   const MedicamentoUpdateManyMutationInput({
     this.id,
     this.nombre,
+    this.fechaVencimiento,
     this.cantidad,
+    this.sku,
   });
 
   factory MedicamentoUpdateManyMutationInput.fromJson(
@@ -1066,7 +1143,12 @@ class MedicamentoUpdateManyMutationInput implements _i1.JsonSerializable {
 
   final StringFieldUpdateOperationsInput? nombre;
 
+  final DateTimeFieldUpdateOperationsInput? fechaVencimiento;
+
   final IntFieldUpdateOperationsInput? cantidad;
+
+  @JsonKey(name: r'SKU')
+  final StringFieldUpdateOperationsInput? sku;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -1078,7 +1160,9 @@ class MedicamentoUncheckedUpdateManyInput implements _i1.JsonSerializable {
   const MedicamentoUncheckedUpdateManyInput({
     this.id,
     this.nombre,
+    this.fechaVencimiento,
     this.cantidad,
+    this.sku,
     this.botiquinId,
   });
 
@@ -1090,7 +1174,12 @@ class MedicamentoUncheckedUpdateManyInput implements _i1.JsonSerializable {
 
   final StringFieldUpdateOperationsInput? nombre;
 
+  final DateTimeFieldUpdateOperationsInput? fechaVencimiento;
+
   final IntFieldUpdateOperationsInput? cantidad;
+
+  @JsonKey(name: r'SKU')
+  final StringFieldUpdateOperationsInput? sku;
 
   final StringFieldUpdateOperationsInput? botiquinId;
 
@@ -1556,6 +1645,43 @@ class BotiquinMinOrderByAggregateInput implements _i1.JsonSerializable {
 }
 
 @_i1.jsonSerializable
+class DateTimeFilter implements _i1.JsonSerializable {
+  const DateTimeFilter({
+    this.equals,
+    this.$in,
+    this.notIn,
+    this.lt,
+    this.lte,
+    this.gt,
+    this.gte,
+    this.not,
+  });
+
+  factory DateTimeFilter.fromJson(Map<String, dynamic> json) =>
+      _$DateTimeFilterFromJson(json);
+
+  final DateTime? equals;
+
+  @JsonKey(name: r'in')
+  final Iterable<DateTime>? $in;
+
+  final Iterable<DateTime>? notIn;
+
+  final DateTime? lt;
+
+  final DateTime? lte;
+
+  final DateTime? gt;
+
+  final DateTime? gte;
+
+  final NestedDateTimeFilter? not;
+
+  @override
+  Map<String, dynamic> toJson() => _$DateTimeFilterToJson(this);
+}
+
+@_i1.jsonSerializable
 class IntFilter implements _i1.JsonSerializable {
   const IntFilter({
     this.equals,
@@ -1616,7 +1742,9 @@ class MedicamentoCountOrderByAggregateInput implements _i1.JsonSerializable {
   const MedicamentoCountOrderByAggregateInput({
     this.id,
     this.nombre,
+    this.fechaVencimiento,
     this.cantidad,
+    this.sku,
     this.botiquinId,
   });
 
@@ -1628,7 +1756,12 @@ class MedicamentoCountOrderByAggregateInput implements _i1.JsonSerializable {
 
   final SortOrder? nombre;
 
+  final SortOrder? fechaVencimiento;
+
   final SortOrder? cantidad;
+
+  @JsonKey(name: r'SKU')
+  final SortOrder? sku;
 
   final SortOrder? botiquinId;
 
@@ -1657,7 +1790,9 @@ class MedicamentoMaxOrderByAggregateInput implements _i1.JsonSerializable {
   const MedicamentoMaxOrderByAggregateInput({
     this.id,
     this.nombre,
+    this.fechaVencimiento,
     this.cantidad,
+    this.sku,
     this.botiquinId,
   });
 
@@ -1669,7 +1804,12 @@ class MedicamentoMaxOrderByAggregateInput implements _i1.JsonSerializable {
 
   final SortOrder? nombre;
 
+  final SortOrder? fechaVencimiento;
+
   final SortOrder? cantidad;
+
+  @JsonKey(name: r'SKU')
+  final SortOrder? sku;
 
   final SortOrder? botiquinId;
 
@@ -1683,7 +1823,9 @@ class MedicamentoMinOrderByAggregateInput implements _i1.JsonSerializable {
   const MedicamentoMinOrderByAggregateInput({
     this.id,
     this.nombre,
+    this.fechaVencimiento,
     this.cantidad,
+    this.sku,
     this.botiquinId,
   });
 
@@ -1695,7 +1837,12 @@ class MedicamentoMinOrderByAggregateInput implements _i1.JsonSerializable {
 
   final SortOrder? nombre;
 
+  final SortOrder? fechaVencimiento;
+
   final SortOrder? cantidad;
+
+  @JsonKey(name: r'SKU')
+  final SortOrder? sku;
 
   final SortOrder? botiquinId;
 
@@ -1717,6 +1864,55 @@ class MedicamentoSumOrderByAggregateInput implements _i1.JsonSerializable {
   @override
   Map<String, dynamic> toJson() =>
       _$MedicamentoSumOrderByAggregateInputToJson(this);
+}
+
+@_i1.jsonSerializable
+class DateTimeWithAggregatesFilter implements _i1.JsonSerializable {
+  const DateTimeWithAggregatesFilter({
+    this.equals,
+    this.$in,
+    this.notIn,
+    this.lt,
+    this.lte,
+    this.gt,
+    this.gte,
+    this.not,
+    this.$count,
+    this.$min,
+    this.$max,
+  });
+
+  factory DateTimeWithAggregatesFilter.fromJson(Map<String, dynamic> json) =>
+      _$DateTimeWithAggregatesFilterFromJson(json);
+
+  final DateTime? equals;
+
+  @JsonKey(name: r'in')
+  final Iterable<DateTime>? $in;
+
+  final Iterable<DateTime>? notIn;
+
+  final DateTime? lt;
+
+  final DateTime? lte;
+
+  final DateTime? gt;
+
+  final DateTime? gte;
+
+  final NestedDateTimeWithAggregatesFilter? not;
+
+  @JsonKey(name: r'_count')
+  final NestedIntFilter? $count;
+
+  @JsonKey(name: r'_min')
+  final NestedDateTimeFilter? $min;
+
+  @JsonKey(name: r'_max')
+  final NestedDateTimeFilter? $max;
+
+  @override
+  Map<String, dynamic> toJson() => _$DateTimeWithAggregatesFilterToJson(this);
 }
 
 @_i1.jsonSerializable
@@ -2158,6 +2354,21 @@ class BotiquinCreateNestedOneWithoutMedicamentosInput
 }
 
 @_i1.jsonSerializable
+class DateTimeFieldUpdateOperationsInput implements _i1.JsonSerializable {
+  const DateTimeFieldUpdateOperationsInput({this.set});
+
+  factory DateTimeFieldUpdateOperationsInput.fromJson(
+          Map<String, dynamic> json) =>
+      _$DateTimeFieldUpdateOperationsInputFromJson(json);
+
+  final DateTime? set;
+
+  @override
+  Map<String, dynamic> toJson() =>
+      _$DateTimeFieldUpdateOperationsInputToJson(this);
+}
+
+@_i1.jsonSerializable
 class IntFieldUpdateOperationsInput implements _i1.JsonSerializable {
   const IntFieldUpdateOperationsInput({
     this.set,
@@ -2501,6 +2712,94 @@ class NestedIntNullableFilter implements _i1.JsonSerializable {
 }
 
 @_i1.jsonSerializable
+class NestedDateTimeFilter implements _i1.JsonSerializable {
+  const NestedDateTimeFilter({
+    this.equals,
+    this.$in,
+    this.notIn,
+    this.lt,
+    this.lte,
+    this.gt,
+    this.gte,
+    this.not,
+  });
+
+  factory NestedDateTimeFilter.fromJson(Map<String, dynamic> json) =>
+      _$NestedDateTimeFilterFromJson(json);
+
+  final DateTime? equals;
+
+  @JsonKey(name: r'in')
+  final Iterable<DateTime>? $in;
+
+  final Iterable<DateTime>? notIn;
+
+  final DateTime? lt;
+
+  final DateTime? lte;
+
+  final DateTime? gt;
+
+  final DateTime? gte;
+
+  final NestedDateTimeFilter? not;
+
+  @override
+  Map<String, dynamic> toJson() => _$NestedDateTimeFilterToJson(this);
+}
+
+@_i1.jsonSerializable
+class NestedDateTimeWithAggregatesFilter implements _i1.JsonSerializable {
+  const NestedDateTimeWithAggregatesFilter({
+    this.equals,
+    this.$in,
+    this.notIn,
+    this.lt,
+    this.lte,
+    this.gt,
+    this.gte,
+    this.not,
+    this.$count,
+    this.$min,
+    this.$max,
+  });
+
+  factory NestedDateTimeWithAggregatesFilter.fromJson(
+          Map<String, dynamic> json) =>
+      _$NestedDateTimeWithAggregatesFilterFromJson(json);
+
+  final DateTime? equals;
+
+  @JsonKey(name: r'in')
+  final Iterable<DateTime>? $in;
+
+  final Iterable<DateTime>? notIn;
+
+  final DateTime? lt;
+
+  final DateTime? lte;
+
+  final DateTime? gt;
+
+  final DateTime? gte;
+
+  final NestedDateTimeWithAggregatesFilter? not;
+
+  @JsonKey(name: r'_count')
+  final NestedIntFilter? $count;
+
+  @JsonKey(name: r'_min')
+  final NestedDateTimeFilter? $min;
+
+  @JsonKey(name: r'_max')
+  final NestedDateTimeFilter? $max;
+
+  @override
+  Map<String, dynamic> toJson() =>
+      _$NestedDateTimeWithAggregatesFilterToJson(this);
+}
+
+@_i1.jsonSerializable
 class NestedIntWithAggregatesFilter implements _i1.JsonSerializable {
   const NestedIntWithAggregatesFilter({
     this.equals,
@@ -2749,7 +3048,9 @@ class MedicamentoCreateWithoutBotiquinInput implements _i1.JsonSerializable {
   const MedicamentoCreateWithoutBotiquinInput({
     this.id,
     required this.nombre,
+    required this.fechaVencimiento,
     required this.cantidad,
+    required this.sku,
   });
 
   factory MedicamentoCreateWithoutBotiquinInput.fromJson(
@@ -2760,7 +3061,12 @@ class MedicamentoCreateWithoutBotiquinInput implements _i1.JsonSerializable {
 
   final String nombre;
 
+  final DateTime fechaVencimiento;
+
   final int cantidad;
+
+  @JsonKey(name: r'SKU')
+  final String sku;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -2773,7 +3079,9 @@ class MedicamentoUncheckedCreateWithoutBotiquinInput
   const MedicamentoUncheckedCreateWithoutBotiquinInput({
     this.id,
     required this.nombre,
+    required this.fechaVencimiento,
     required this.cantidad,
+    required this.sku,
   });
 
   factory MedicamentoUncheckedCreateWithoutBotiquinInput.fromJson(
@@ -2784,7 +3092,12 @@ class MedicamentoUncheckedCreateWithoutBotiquinInput
 
   final String nombre;
 
+  final DateTime fechaVencimiento;
+
   final int cantidad;
+
+  @JsonKey(name: r'SKU')
+  final String sku;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -2977,7 +3290,9 @@ class MedicamentoScalarWhereInput implements _i1.JsonSerializable {
     this.NOT,
     this.id,
     this.nombre,
+    this.fechaVencimiento,
     this.cantidad,
+    this.sku,
     this.botiquinId,
   });
 
@@ -2994,7 +3309,12 @@ class MedicamentoScalarWhereInput implements _i1.JsonSerializable {
 
   final StringFilter? nombre;
 
+  final DateTimeFilter? fechaVencimiento;
+
   final IntFilter? cantidad;
+
+  @JsonKey(name: r'SKU')
+  final StringFilter? sku;
 
   final StringFilter? botiquinId;
 
@@ -3258,7 +3578,9 @@ class MedicamentoCreateManyBotiquinInput implements _i1.JsonSerializable {
   const MedicamentoCreateManyBotiquinInput({
     this.id,
     required this.nombre,
+    required this.fechaVencimiento,
     required this.cantidad,
+    required this.sku,
   });
 
   factory MedicamentoCreateManyBotiquinInput.fromJson(
@@ -3269,7 +3591,12 @@ class MedicamentoCreateManyBotiquinInput implements _i1.JsonSerializable {
 
   final String nombre;
 
+  final DateTime fechaVencimiento;
+
   final int cantidad;
+
+  @JsonKey(name: r'SKU')
+  final String sku;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -3281,7 +3608,9 @@ class MedicamentoUpdateWithoutBotiquinInput implements _i1.JsonSerializable {
   const MedicamentoUpdateWithoutBotiquinInput({
     this.id,
     this.nombre,
+    this.fechaVencimiento,
     this.cantidad,
+    this.sku,
   });
 
   factory MedicamentoUpdateWithoutBotiquinInput.fromJson(
@@ -3292,7 +3621,12 @@ class MedicamentoUpdateWithoutBotiquinInput implements _i1.JsonSerializable {
 
   final StringFieldUpdateOperationsInput? nombre;
 
+  final DateTimeFieldUpdateOperationsInput? fechaVencimiento;
+
   final IntFieldUpdateOperationsInput? cantidad;
+
+  @JsonKey(name: r'SKU')
+  final StringFieldUpdateOperationsInput? sku;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -3305,7 +3639,9 @@ class MedicamentoUncheckedUpdateWithoutBotiquinInput
   const MedicamentoUncheckedUpdateWithoutBotiquinInput({
     this.id,
     this.nombre,
+    this.fechaVencimiento,
     this.cantidad,
+    this.sku,
   });
 
   factory MedicamentoUncheckedUpdateWithoutBotiquinInput.fromJson(
@@ -3316,7 +3652,12 @@ class MedicamentoUncheckedUpdateWithoutBotiquinInput
 
   final StringFieldUpdateOperationsInput? nombre;
 
+  final DateTimeFieldUpdateOperationsInput? fechaVencimiento;
+
   final IntFieldUpdateOperationsInput? cantidad;
+
+  @JsonKey(name: r'SKU')
+  final StringFieldUpdateOperationsInput? sku;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -3329,7 +3670,9 @@ class MedicamentoUncheckedUpdateManyWithoutBotiquinInput
   const MedicamentoUncheckedUpdateManyWithoutBotiquinInput({
     this.id,
     this.nombre,
+    this.fechaVencimiento,
     this.cantidad,
+    this.sku,
   });
 
   factory MedicamentoUncheckedUpdateManyWithoutBotiquinInput.fromJson(
@@ -3340,7 +3683,12 @@ class MedicamentoUncheckedUpdateManyWithoutBotiquinInput
 
   final StringFieldUpdateOperationsInput? nombre;
 
+  final DateTimeFieldUpdateOperationsInput? fechaVencimiento;
+
   final IntFieldUpdateOperationsInput? cantidad;
+
+  @JsonKey(name: r'SKU')
+  final StringFieldUpdateOperationsInput? sku;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -3396,7 +3744,9 @@ class Medicamento implements _i1.JsonSerializable {
   const Medicamento({
     required this.id,
     required this.nombre,
+    required this.fechaVencimiento,
     required this.cantidad,
+    required this.sku,
     required this.botiquinId,
   });
 
@@ -3407,7 +3757,12 @@ class Medicamento implements _i1.JsonSerializable {
 
   final String nombre;
 
+  final DateTime fechaVencimiento;
+
   final int cantidad;
+
+  @JsonKey(name: r'SKU')
+  final String sku;
 
   final String botiquinId;
 
@@ -5214,7 +5569,9 @@ class MedicamentoGroupByOutputType implements _i1.JsonSerializable {
   const MedicamentoGroupByOutputType({
     this.id,
     this.nombre,
+    this.fechaVencimiento,
     this.cantidad,
+    this.sku,
     this.botiquinId,
   });
 
@@ -5225,7 +5582,12 @@ class MedicamentoGroupByOutputType implements _i1.JsonSerializable {
 
   final String? nombre;
 
+  final DateTime? fechaVencimiento;
+
   final int? cantidad;
+
+  @JsonKey(name: r'SKU')
+  final String? sku;
 
   final String? botiquinId;
 
@@ -5799,6 +6161,19 @@ class MedicamentoCountAggregateOutputType {
     return query(const []).then((value) => (value as int));
   }
 
+  Future<int> fechaVencimiento() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'fechaVencimiento',
+          fields: fields,
+        )
+      ]),
+      key: r'fechaVencimiento',
+    );
+    return query(const []).then((value) => (value as int));
+  }
+
   Future<int> cantidad() {
     final query = _i1.PrismaFluent.queryBuilder(
       query: (fields) => $query([
@@ -5808,6 +6183,19 @@ class MedicamentoCountAggregateOutputType {
         )
       ]),
       key: r'cantidad',
+    );
+    return query(const []).then((value) => (value as int));
+  }
+
+  Future<int> sku() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'SKU',
+          fields: fields,
+        )
+      ]),
+      key: r'SKU',
     );
     return query(const []).then((value) => (value as int));
   }
@@ -5908,6 +6296,20 @@ class MedicamentoMinAggregateOutputType {
     return query(const []).then((value) => (value as String?));
   }
 
+  Future<DateTime?> fechaVencimiento() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'fechaVencimiento',
+          fields: fields,
+        )
+      ]),
+      key: r'fechaVencimiento',
+    );
+    return query(const [])
+        .then((value) => value is String ? DateTime.parse(value) : null);
+  }
+
   Future<int?> cantidad() {
     final query = _i1.PrismaFluent.queryBuilder(
       query: (fields) => $query([
@@ -5919,6 +6321,19 @@ class MedicamentoMinAggregateOutputType {
       key: r'cantidad',
     );
     return query(const []).then((value) => (value as int?));
+  }
+
+  Future<String?> sku() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'SKU',
+          fields: fields,
+        )
+      ]),
+      key: r'SKU',
+    );
+    return query(const []).then((value) => (value as String?));
   }
 
   Future<String?> botiquinId() {
@@ -5966,6 +6381,20 @@ class MedicamentoMaxAggregateOutputType {
     return query(const []).then((value) => (value as String?));
   }
 
+  Future<DateTime?> fechaVencimiento() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'fechaVencimiento',
+          fields: fields,
+        )
+      ]),
+      key: r'fechaVencimiento',
+    );
+    return query(const [])
+        .then((value) => value is String ? DateTime.parse(value) : null);
+  }
+
   Future<int?> cantidad() {
     final query = _i1.PrismaFluent.queryBuilder(
       query: (fields) => $query([
@@ -5977,6 +6406,19 @@ class MedicamentoMaxAggregateOutputType {
       key: r'cantidad',
     );
     return query(const []).then((value) => (value as int?));
+  }
+
+  Future<String?> sku() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'SKU',
+          fields: fields,
+        )
+      ]),
+      key: r'SKU',
+    );
+    return query(const []).then((value) => (value as String?));
   }
 
   Future<String?> botiquinId() {
@@ -5999,9 +6441,7 @@ class MedicamentoMaxAggregateOutputType {
   includeIfNull: false,
 )
 class Datasources implements _i1.JsonSerializable {
-  const Datasources(
-      {this.db =
-          r'postgresql://postgres:TrabajoDeTitulo2024@localhost:5432/trabajodetitulo?schema=public'});
+  const Datasources({this.db});
 
   final String? db;
 
@@ -6035,7 +6475,7 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
     final engine = _i5.BinaryEngine(
       logger: logger,
       schema:
-          r'Ly8gVGhpcyBpcyB5b3VyIFByaXNtYSBzY2hlbWEgZmlsZSwKLy8gbGVhcm4gbW9yZSBhYm91dCBpdCBpbiB0aGUgZG9jczogaHR0cHM6Ly9wcmlzLmx5L2QvcHJpc21hLXNjaGVtYQoKLy8gTG9va2luZyBmb3Igd2F5cyB0byBzcGVlZCB1cCB5b3VyIHF1ZXJpZXMsIG9yIHNjYWxlIGVhc2lseSB3aXRoIHlvdXIgc2VydmVybGVzcyBvciBlZGdlIGZ1bmN0aW9ucz8KLy8gVHJ5IFByaXNtYSBBY2NlbGVyYXRlOiBodHRwczovL3ByaXMubHkvY2xpL2FjY2VsZXJhdGUtaW5pdAoKZ2VuZXJhdG9yIGNsaWVudCB7CiAgcHJvdmlkZXIgPSAiZGFydCBydW4gb3JtIgp9CgpkYXRhc291cmNlIGRiIHsKICBwcm92aWRlciA9ICJwb3N0Z3Jlc3FsIgogIHVybCAgICAgID0gInBvc3RncmVzcWw6Ly9wb3N0Z3JlczpUcmFiYWpvRGVUaXR1bG8yMDI0QGxvY2FsaG9zdDo1NDMyL3RyYWJham9kZXRpdHVsbz9zY2hlbWE9cHVibGljIgp9Cgptb2RlbCBVc2VyIHsKICBpZCAgICAgICAgU3RyaW5nICAgQGlkIEBkZWZhdWx0KGN1aWQoKSkKICBlbWFpbCAgICAgU3RyaW5nICAgQHVuaXF1ZQogIG5hbWUgICAgICBTdHJpbmc/CiAgcGFzc3dvcmQgIFN0cmluZwogIGJvdGlxdWluIEJvdGlxdWluPwp9Cgptb2RlbCBCb3RpcXVpbiB7CiAgaWQgICAgICAgIFN0cmluZyAgIEBpZCBAZGVmYXVsdChjdWlkKCkpCiAgbm9tYnJlICAgIFN0cmluZwogIG1lZGljYW1lbnRvcyBNZWRpY2FtZW50b1tdCiAgdXNlciAgICAgIFVzZXIgICAgIEByZWxhdGlvbihmaWVsZHM6IFt1c2VySWRdLCByZWZlcmVuY2VzOiBbaWRdKQogIHVzZXJJZCAgICBTdHJpbmcgIEB1bmlxdWUKfQoKbW9kZWwgTWVkaWNhbWVudG8gewogIGlkICAgICAgICBTdHJpbmcgICBAaWQgQGRlZmF1bHQoY3VpZCgpKQogIG5vbWJyZSAgICBTdHJpbmcKICBjYW50aWRhZCAgSW50CiAgYm90aXF1aW4gIEJvdGlxdWluIEByZWxhdGlvbihmaWVsZHM6IFtib3RpcXVpbklkXSwgcmVmZXJlbmNlczogW2lkXSkKICBib3RpcXVpbklkIFN0cmluZwp9',
+          r'Ly8gVGhpcyBpcyB5b3VyIFByaXNtYSBzY2hlbWEgZmlsZSwKLy8gbGVhcm4gbW9yZSBhYm91dCBpdCBpbiB0aGUgZG9jczogaHR0cHM6Ly9wcmlzLmx5L2QvcHJpc21hLXNjaGVtYQoKLy8gTG9va2luZyBmb3Igd2F5cyB0byBzcGVlZCB1cCB5b3VyIHF1ZXJpZXMsIG9yIHNjYWxlIGVhc2lseSB3aXRoIHlvdXIgc2VydmVybGVzcyBvciBlZGdlIGZ1bmN0aW9ucz8KLy8gVHJ5IFByaXNtYSBBY2NlbGVyYXRlOiBodHRwczovL3ByaXMubHkvY2xpL2FjY2VsZXJhdGUtaW5pdAoKZ2VuZXJhdG9yIGNsaWVudCB7CiAgcHJvdmlkZXIgPSAiZGFydCBydW4gb3JtIgp9CgpkYXRhc291cmNlIGRiIHsKICBwcm92aWRlciA9ICJwb3N0Z3Jlc3FsIgogIHVybCAgICAgICA9IGVudigiREFUQUJBU0VfVVJMIikKICBkaXJlY3RVcmwgPSBlbnYoIkRJUkVDVF9VUkwiKQoKfQoKbW9kZWwgVXNlciB7CiAgaWQgICAgICAgIFN0cmluZyAgIEBpZCBAZGVmYXVsdChjdWlkKCkpCiAgZW1haWwgICAgIFN0cmluZyAgIEB1bmlxdWUKICBuYW1lICAgICAgU3RyaW5nPwogIHBhc3N3b3JkICBTdHJpbmcKICBib3RpcXVpbiBCb3RpcXVpbj8KfQoKbW9kZWwgQm90aXF1aW4gewogIGlkICAgICAgICBTdHJpbmcgICBAaWQgQGRlZmF1bHQoY3VpZCgpKQogIG5vbWJyZSAgICBTdHJpbmcKICBtZWRpY2FtZW50b3MgTWVkaWNhbWVudG9bXQogIHVzZXIgICAgICBVc2VyICAgICBAcmVsYXRpb24oZmllbGRzOiBbdXNlcklkXSwgcmVmZXJlbmNlczogW2lkXSkKICB1c2VySWQgICAgU3RyaW5nICBAdW5pcXVlCn0KCm1vZGVsIE1lZGljYW1lbnRvIHsKICBpZCAgICAgICAgU3RyaW5nICAgQGlkIEBkZWZhdWx0KGN1aWQoKSkKICBub21icmUgICAgU3RyaW5nCiAgZmVjaGFWZW5jaW1pZW50byAgRGF0ZVRpbWUKICBjYW50aWRhZCAgSW50CiAgU0tVICAgICAgIFN0cmluZyBAdW5pcXVlCiAgYm90aXF1aW4gIEJvdGlxdWluIEByZWxhdGlvbihmaWVsZHM6IFtib3RpcXVpbklkXSwgcmVmZXJlbmNlczogW2lkXSkKICBib3RpcXVpbklkIFN0cmluZwp9',
       datasources: datasources?.toJson().cast() ?? const {},
       executable:
           r'C:\Users\liada\Documents\Ultimo Semestre\ProyectoDeTitulo\botiquin_electronico\db\node_modules\prisma\query-engine-windows.exe',
