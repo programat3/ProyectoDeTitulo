@@ -10,19 +10,46 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const appTitle = 'Inicia Sesión con tu correo electrónico';
 
     return MaterialApp(
-      title: appTitle,
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text(appTitle),
+        body: Container(
+          decoration: BoxDecoration(
+            color: Color(0xFF2879C2), // Color de fondo azul
+          ),
+          child: Center(
+            child: Container(
+              margin: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
+              decoration: BoxDecoration(
+              color: Color(0xFFF2E0D7), // Color de fondo azul claro
+              borderRadius: BorderRadius.circular(10.0),
+              border: Border.all(color: Colors.white, width: 2),
+      
+    ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Iniciar sesión',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 20), // Añadir un espacio entre el texto y el formulario
+                  const MyCustomForm(),
+                ],
+              ),
+            ),
+            
+          ),
         ),
-        body: const MyCustomForm(),
       ),
     );
   }
 }
+
 
 // Create a Form widget.
 class MyCustomForm extends StatefulWidget {
@@ -91,8 +118,12 @@ class MyCustomFormState extends State<MyCustomForm> {
               },
         
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
+             Padding(
+              padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 18),
+              child: AnimatedContainer(
+              duration: Duration(milliseconds: 300),
+              
+
               child: ElevatedButton(
                 onPressed: () async{
                   // Validate returns true if the form is valid, or false otherwise.
@@ -122,12 +153,22 @@ class MyCustomFormState extends State<MyCustomForm> {
                     }
                   }
                 },
-                child: const Text('Entrar'),
+                style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24), // Ajusta los valores de padding según sea necesario
+                backgroundColor: Color(0xFF2879C2),
+                elevation: 0,
+                side: BorderSide(color: Colors.white, width: 2),
+                ),
+                child: Text(
+                'Iniciar Sesión',
+                style: TextStyle(fontSize: 18, color: Colors.white),
+                ),
               ),
-            ),
-          ],
+          ),
         ),
-      ),
-    );
-  }
+      ],  
+    ),
+  ),
+);
+}
 }
