@@ -10,7 +10,7 @@ environment:
 dependencies:
   crypto: ^3.0.3
   json_annotation: ^4.8.1
-  orm: ^3.4.8
+  orm: ^4.1.0
   # path: ^1.8.0
 
 dev_dependencies:

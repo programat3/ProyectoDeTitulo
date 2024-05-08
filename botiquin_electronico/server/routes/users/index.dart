@@ -19,7 +19,7 @@ Future<Response> onRequest(RequestContext context) async {
   if (context.request.method == HttpMethod.get) {
     final users = await database.getUsers();
     return Response(body: jsonEncode(
-      users.map((user) => user.toJson()).toList(),),
+      users.map((user) => user?.toJson()).toList(),),
       );
   }
   return Response(body: 'Welcome to Dart Frog!');
