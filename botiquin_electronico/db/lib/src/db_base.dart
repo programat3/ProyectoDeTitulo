@@ -9,7 +9,7 @@ class Database {
   : _db = PrismaClient(
     stdout: Event.values,
     datasources: Datasources(
-      db: 'postgresql://postgres:TrabajoDeTitulo2024@localhost:5432/trabajodetitulo?schema=public'
+      db: 'postgres://postgres.pwgcbynbrriisskoatqf:BotiquinElectronico2024@aws-0-sa-east-1.pooler.supabase.com:6543/postgres'
     ),
   );
   PrismaClient _db;
