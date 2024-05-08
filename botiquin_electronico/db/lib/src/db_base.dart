@@ -91,7 +91,7 @@ class Database {
     required Medicamento medicamento,
   }) async {
     return _db.medicamento.create(
-      data: MedicamentoCreateInput(nombre: medicamento.nombre, cantidad: medicamento.cantidad, botiquin: BotiquinCreateNestedOneWithoutMedicamentosInput(connect: BotiquinWhereUniqueInput(id: medicamento.botiquinId))),
+      data: MedicamentoCreateInput(nombre: medicamento.nombre,sku: medicamento.sku, fechaVencimiento: medicamento.fechaVencimiento,cantidad: medicamento.cantidad, botiquin: BotiquinCreateNestedOneWithoutMedicamentosInput(connect: BotiquinWhereUniqueInput(id: medicamento.botiquinId))),
     );
   }
 
