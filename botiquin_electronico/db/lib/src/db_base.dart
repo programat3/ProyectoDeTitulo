@@ -86,8 +86,31 @@ class Database {
       ));
     }
   }
-}
 
+  Future<Medicamento?> addMedicamento({
+    required Medicamento medicamento,
+  }) async {
+    return _db.medicamento.create(
+      data: MedicamentoCreateInput(nombre: medicamento.nombre, cantidad: medicamento.cantidad, botiquin: BotiquinCreateNestedOneWithoutMedicamentosInput(connect: BotiquinWhereUniqueInput(id: medicamento.botiquinId))),
+    );
+  }
+
+  Future<Iterable<Medicamento>?> getMedicamentosFromBotiquin({
+    required String email,
+  }) async {
+    var user = await _db.user.findUnique(
+      where: UserWhereUniqueInput(email: email),
+    );
+    if (user == null) {
+      return null;
+    }
+    else{
+      return _db.medicamento.findMany(
+        where: MedicamentoWhereInput(botiquin: BotiquinRelationFilter( $is: BotiquinWhereInput(userId: StringFilter( equals: user.id)))),
+      );
+    }
+  }
+}
 String _hash(String password){
   final bytes = utf8.encode(password);
   final digest = sha256.convert(bytes);
