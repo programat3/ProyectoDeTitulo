@@ -35,7 +35,7 @@ model Botiquin {
 model Medicamento {
   id        String   @id @default(cuid())
   nombre    String
-  fechaVencimiento  DateTime
+  fechaVencimiento  String
   cantidad  Int
   SKU       String @unique
   botiquin  Botiquin @relation(fields: [botiquinId], references: [id])

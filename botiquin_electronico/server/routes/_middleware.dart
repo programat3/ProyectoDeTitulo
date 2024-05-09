@@ -1,5 +1,5 @@
 import 'package:dart_frog/dart_frog.dart';
-import 'package:db/db.dart';
+import 'package:db/src/db_base.dart';
 
 final database = Database();
 

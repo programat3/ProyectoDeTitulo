@@ -8,12 +8,10 @@ Future<Response> onRequest(RequestContext context) async {
 
   if (context.request.method == HttpMethod.post) {
     final requestBody = await context.request.json() as Map<String, dynamic>;
-    final user = await database.createUser(email: requestBody['email']! as String, password: requestBody['password']! as String);
-    if(user == null){
-      return Response(statusCode: 409);
-    }else{
+    final user = await database.createUser(email: requestBody['email']! as String, 
+                                            password: requestBody['password']! as String);
     return Response(body: jsonEncode(user.toJson()));
-    }
+
   }
 
   if (context.request.method == HttpMethod.get) {

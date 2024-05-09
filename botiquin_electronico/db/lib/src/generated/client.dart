@@ -1404,7 +1404,7 @@ class PrismaClient {
   }) {
     datasources ??= {
       'db':
-          'postgres://postgres.pwgcbynbrriisskoatqf:[YOUR-PASSWORD]@aws-0-sa-east-1.pooler.supabase.com:6543/postgres'
+          'postgres://postgres.pwgcbynbrriisskoatqf:Yr53Mgy,6e+aYP%@aws-0-sa-east-1.pooler.supabase.com:6543/postgres?pgbouncer=true&connection_limit=1'
     };
     if (datasourceUrl != null) {
       datasources = datasources.map((
@@ -1418,7 +1418,7 @@ class PrismaClient {
     }
     final engine = _i4.BinaryEngine(
       schema:
-          '// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = "dart run orm"\n  output = "../lib/src/generated"\n}\n\ndatasource db {\n  provider = "postgresql"\n  url       = env("DATABASE_URL")\n  directUrl = env("DIRECT_URL")\n\n}\n\nmodel User {\n  id        String   @id @default(cuid())\n  email     String   @unique\n  name      String?\n  password  String\n  botiquin Botiquin?\n}\n\nmodel Botiquin {\n  id        String   @id @default(cuid())\n  nombre    String\n  medicamentos Medicamento[]\n  user      User     @relation(fields: [userId], references: [id])\n  userId    String  @unique\n}\n\nmodel Medicamento {\n  id        String   @id @default(cuid())\n  nombre    String\n  fechaVencimiento  DateTime\n  cantidad  Int\n  SKU       String @unique\n  botiquin  Botiquin @relation(fields: [botiquinId], references: [id])\n  botiquinId String\n}',
+          '// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = "dart run orm"\n  output = "../lib/src/generated"\n}\n\ndatasource db {\n  provider = "postgresql"\n  url       = env("DATABASE_URL")\n  directUrl = env("DIRECT_URL")\n\n}\n\nmodel User {\n  id        String   @id @default(cuid())\n  email     String   @unique\n  name      String?\n  password  String\n  botiquin Botiquin?\n}\n\nmodel Botiquin {\n  id        String   @id @default(cuid())\n  nombre    String\n  medicamentos Medicamento[]\n  user      User     @relation(fields: [userId], references: [id])\n  userId    String  @unique\n}\n\nmodel Medicamento {\n  id        String   @id @default(cuid())\n  nombre    String\n  fechaVencimiento  String\n  cantidad  Int\n  SKU       String @unique\n  botiquin  Botiquin @relation(fields: [botiquinId], references: [id])\n  botiquinId String\n}',
       datasources: datasources,
     );
     final metrics = _i1.MetricsClient(engine);
@@ -1649,7 +1649,7 @@ class PrismaClient {
             'isId': false,
             'isReadOnly': false,
             'hasDefaultValue': false,
-            'type': 'DateTime',
+            'type': 'String',
             'isGenerated': false,
             'isUpdatedAt': false,
           },

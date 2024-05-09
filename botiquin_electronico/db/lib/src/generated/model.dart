@@ -29,7 +29,7 @@ class Medicamento {
 
   final String? nombre;
 
-  final DateTime? fechaVencimiento;
+  final String? fechaVencimiento;
 
   final int? cantidad;
 
@@ -52,7 +52,7 @@ class Medicamento {
 
 class Botiquin {
   const Botiquin({
-    this.id,
+    required this.id,
     this.nombre,
     this.userId,
     this.medicamentos,
@@ -72,7 +72,7 @@ class Botiquin {
             : null,
       );
 
-  final String? id;
+  final String id;
 
   final String? nombre;
 

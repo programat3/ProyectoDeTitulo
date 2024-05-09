@@ -258,93 +258,6 @@ class StringNullableFilter
       };
 }
 
-class NestedDateTimeFilter
-    implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const NestedDateTimeFilter({
-    this.equals,
-    this.$in,
-    this.notIn,
-    this.lt,
-    this.lte,
-    this.gt,
-    this.gte,
-    this.not,
-  });
-
-  final _i1.PrismaUnion<DateTime, _i1.Reference<DateTime>>? equals;
-
-  final _i1.PrismaUnion<Iterable<DateTime>, _i1.Reference<Iterable<DateTime>>>?
-      $in;
-
-  final _i1.PrismaUnion<Iterable<DateTime>, _i1.Reference<Iterable<DateTime>>>?
-      notIn;
-
-  final _i1.PrismaUnion<DateTime, _i1.Reference<DateTime>>? lt;
-
-  final _i1.PrismaUnion<DateTime, _i1.Reference<DateTime>>? lte;
-
-  final _i1.PrismaUnion<DateTime, _i1.Reference<DateTime>>? gt;
-
-  final _i1.PrismaUnion<DateTime, _i1.Reference<DateTime>>? gte;
-
-  final _i1.PrismaUnion<DateTime, _i2.NestedDateTimeFilter>? not;
-
-  @override
-  Map<String, dynamic> toJson() => {
-        'equals': equals,
-        'in': $in,
-        'notIn': notIn,
-        'lt': lt,
-        'lte': lte,
-        'gt': gt,
-        'gte': gte,
-        'not': not,
-      };
-}
-
-class DateTimeFilter implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const DateTimeFilter({
-    this.equals,
-    this.$in,
-    this.notIn,
-    this.lt,
-    this.lte,
-    this.gt,
-    this.gte,
-    this.not,
-  });
-
-  final _i1.PrismaUnion<DateTime, _i1.Reference<DateTime>>? equals;
-
-  final _i1.PrismaUnion<Iterable<DateTime>, _i1.Reference<Iterable<DateTime>>>?
-      $in;
-
-  final _i1.PrismaUnion<Iterable<DateTime>, _i1.Reference<Iterable<DateTime>>>?
-      notIn;
-
-  final _i1.PrismaUnion<DateTime, _i1.Reference<DateTime>>? lt;
-
-  final _i1.PrismaUnion<DateTime, _i1.Reference<DateTime>>? lte;
-
-  final _i1.PrismaUnion<DateTime, _i1.Reference<DateTime>>? gt;
-
-  final _i1.PrismaUnion<DateTime, _i1.Reference<DateTime>>? gte;
-
-  final _i1.PrismaUnion<DateTime, _i2.NestedDateTimeFilter>? not;
-
-  @override
-  Map<String, dynamic> toJson() => {
-        'equals': equals,
-        'in': $in,
-        'notIn': notIn,
-        'lt': lt,
-        'lte': lte,
-        'gt': gt,
-        'gte': gte,
-        'not': not,
-      };
-}
-
 class NestedIntFilter implements _i1.JsonConvertible<Map<String, dynamic>> {
   const NestedIntFilter({
     this.equals,
@@ -472,7 +385,7 @@ class MedicamentoWhereInput
 
   final _i1.PrismaUnion<_i2.StringFilter, String>? nombre;
 
-  final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? fechaVencimiento;
+  final _i1.PrismaUnion<_i2.StringFilter, String>? fechaVencimiento;
 
   final _i1.PrismaUnion<_i2.IntFilter, int>? cantidad;
 
@@ -888,7 +801,7 @@ class MedicamentoWhereUniqueInput
 
   final _i1.PrismaUnion<_i2.StringFilter, String>? nombre;
 
-  final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? fechaVencimiento;
+  final _i1.PrismaUnion<_i2.StringFilter, String>? fechaVencimiento;
 
   final _i1.PrismaUnion<_i2.IntFilter, int>? cantidad;
 
@@ -915,7 +828,7 @@ class MedicamentoWhereUniqueInput
 enum MedicamentoScalar<T> implements _i1.PrismaEnum, _i1.Reference<T> {
   id<String>('id', 'Medicamento'),
   nombre<String>('nombre', 'Medicamento'),
-  fechaVencimiento<DateTime>('fechaVencimiento', 'Medicamento'),
+  fechaVencimiento<String>('fechaVencimiento', 'Medicamento'),
   cantidad<int>('cantidad', 'Medicamento'),
   sku<String>('SKU', 'Medicamento'),
   botiquinId<String>('botiquinId', 'Medicamento');
@@ -1194,7 +1107,7 @@ class MedicamentoCreateWithoutBotiquinInput
 
   final String nombre;
 
-  final DateTime fechaVencimiento;
+  final String fechaVencimiento;
 
   final int cantidad;
 
@@ -1224,7 +1137,7 @@ class MedicamentoUncheckedCreateWithoutBotiquinInput
 
   final String nombre;
 
-  final DateTime fechaVencimiento;
+  final String fechaVencimiento;
 
   final int cantidad;
 
@@ -1273,7 +1186,7 @@ class MedicamentoCreateManyBotiquinInput
 
   final String nombre;
 
-  final DateTime fechaVencimiento;
+  final String fechaVencimiento;
 
   final int cantidad;
 
@@ -1653,16 +1566,6 @@ class NullableStringFieldUpdateOperationsInput
   Map<String, dynamic> toJson() => {'set': set};
 }
 
-class DateTimeFieldUpdateOperationsInput
-    implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const DateTimeFieldUpdateOperationsInput({this.set});
-
-  final DateTime? set;
-
-  @override
-  Map<String, dynamic> toJson() => {'set': set};
-}
-
 class IntFieldUpdateOperationsInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const IntFieldUpdateOperationsInput({
@@ -1707,7 +1610,7 @@ class MedicamentoUpdateWithoutBotiquinInput
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? nombre;
 
-  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
       fechaVencimiento;
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? cantidad;
@@ -1738,7 +1641,7 @@ class MedicamentoUncheckedUpdateWithoutBotiquinInput
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? nombre;
 
-  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
       fechaVencimiento;
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? cantidad;
@@ -1824,7 +1727,7 @@ class MedicamentoScalarWhereInput
 
   final _i1.PrismaUnion<_i2.StringFilter, String>? nombre;
 
-  final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? fechaVencimiento;
+  final _i1.PrismaUnion<_i2.StringFilter, String>? fechaVencimiento;
 
   final _i1.PrismaUnion<_i2.IntFilter, int>? cantidad;
 
@@ -1860,7 +1763,7 @@ class MedicamentoUpdateManyMutationInput
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? nombre;
 
-  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
       fechaVencimiento;
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? cantidad;
@@ -1891,7 +1794,7 @@ class MedicamentoUncheckedUpdateManyWithoutBotiquinInput
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? nombre;
 
-  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
       fechaVencimiento;
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? cantidad;
@@ -4253,7 +4156,7 @@ class MedicamentoCreateInput
 
   final String nombre;
 
-  final DateTime fechaVencimiento;
+  final String fechaVencimiento;
 
   final int cantidad;
 
@@ -4287,7 +4190,7 @@ class MedicamentoUncheckedCreateInput
 
   final String nombre;
 
-  final DateTime fechaVencimiento;
+  final String fechaVencimiento;
 
   final int cantidad;
 
@@ -4321,7 +4224,7 @@ class MedicamentoCreateManyInput
 
   final String nombre;
 
-  final DateTime fechaVencimiento;
+  final String fechaVencimiento;
 
   final int cantidad;
 
@@ -4476,7 +4379,7 @@ class MedicamentoUpdateInput
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? nombre;
 
-  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
       fechaVencimiento;
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? cantidad;
@@ -4511,7 +4414,7 @@ class MedicamentoUncheckedUpdateInput
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? nombre;
 
-  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
       fechaVencimiento;
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? cantidad;
@@ -4547,7 +4450,7 @@ class MedicamentoUncheckedUpdateManyInput
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? nombre;
 
-  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>?
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
       fechaVencimiento;
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? cantidad;
@@ -4661,7 +4564,7 @@ class MedicamentoMinAggregateOutputType {
 
   final String? nombre;
 
-  final DateTime? fechaVencimiento;
+  final String? fechaVencimiento;
 
   final int? cantidad;
 
@@ -4703,7 +4606,7 @@ class MedicamentoMaxAggregateOutputType {
 
   final String? nombre;
 
-  final DateTime? fechaVencimiento;
+  final String? fechaVencimiento;
 
   final int? cantidad;
 
@@ -4765,7 +4668,7 @@ class MedicamentoGroupByOutputType {
 
   final String? nombre;
 
-  final DateTime? fechaVencimiento;
+  final String? fechaVencimiento;
 
   final int? cantidad;
 
@@ -4974,118 +4877,6 @@ class MedicamentoOrderByWithAggregationInput
       };
 }
 
-class NestedDateTimeWithAggregatesFilter
-    implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const NestedDateTimeWithAggregatesFilter({
-    this.equals,
-    this.$in,
-    this.notIn,
-    this.lt,
-    this.lte,
-    this.gt,
-    this.gte,
-    this.not,
-    this.$count,
-    this.$min,
-    this.$max,
-  });
-
-  final _i1.PrismaUnion<DateTime, _i1.Reference<DateTime>>? equals;
-
-  final _i1.PrismaUnion<Iterable<DateTime>, _i1.Reference<Iterable<DateTime>>>?
-      $in;
-
-  final _i1.PrismaUnion<Iterable<DateTime>, _i1.Reference<Iterable<DateTime>>>?
-      notIn;
-
-  final _i1.PrismaUnion<DateTime, _i1.Reference<DateTime>>? lt;
-
-  final _i1.PrismaUnion<DateTime, _i1.Reference<DateTime>>? lte;
-
-  final _i1.PrismaUnion<DateTime, _i1.Reference<DateTime>>? gt;
-
-  final _i1.PrismaUnion<DateTime, _i1.Reference<DateTime>>? gte;
-
-  final _i1.PrismaUnion<DateTime, _i2.NestedDateTimeWithAggregatesFilter>? not;
-
-  final _i2.NestedIntFilter? $count;
-
-  final _i2.NestedDateTimeFilter? $min;
-
-  final _i2.NestedDateTimeFilter? $max;
-
-  @override
-  Map<String, dynamic> toJson() => {
-        'equals': equals,
-        'in': $in,
-        'notIn': notIn,
-        'lt': lt,
-        'lte': lte,
-        'gt': gt,
-        'gte': gte,
-        'not': not,
-        '_count': $count,
-        '_min': $min,
-        '_max': $max,
-      };
-}
-
-class DateTimeWithAggregatesFilter
-    implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const DateTimeWithAggregatesFilter({
-    this.equals,
-    this.$in,
-    this.notIn,
-    this.lt,
-    this.lte,
-    this.gt,
-    this.gte,
-    this.not,
-    this.$count,
-    this.$min,
-    this.$max,
-  });
-
-  final _i1.PrismaUnion<DateTime, _i1.Reference<DateTime>>? equals;
-
-  final _i1.PrismaUnion<Iterable<DateTime>, _i1.Reference<Iterable<DateTime>>>?
-      $in;
-
-  final _i1.PrismaUnion<Iterable<DateTime>, _i1.Reference<Iterable<DateTime>>>?
-      notIn;
-
-  final _i1.PrismaUnion<DateTime, _i1.Reference<DateTime>>? lt;
-
-  final _i1.PrismaUnion<DateTime, _i1.Reference<DateTime>>? lte;
-
-  final _i1.PrismaUnion<DateTime, _i1.Reference<DateTime>>? gt;
-
-  final _i1.PrismaUnion<DateTime, _i1.Reference<DateTime>>? gte;
-
-  final _i1.PrismaUnion<DateTime, _i2.NestedDateTimeWithAggregatesFilter>? not;
-
-  final _i2.NestedIntFilter? $count;
-
-  final _i2.NestedDateTimeFilter? $min;
-
-  final _i2.NestedDateTimeFilter? $max;
-
-  @override
-  Map<String, dynamic> toJson() => {
-        'equals': equals,
-        'in': $in,
-        'notIn': notIn,
-        'lt': lt,
-        'lte': lte,
-        'gt': gt,
-        'gte': gte,
-        'not': not,
-        '_count': $count,
-        '_min': $min,
-        '_max': $max,
-      };
-}
-
 class NestedFloatFilter implements _i1.JsonConvertible<Map<String, dynamic>> {
   const NestedFloatFilter({
     this.equals,
@@ -5278,7 +5069,7 @@ class MedicamentoScalarWhereWithAggregatesInput
 
   final _i1.PrismaUnion<_i2.StringWithAggregatesFilter, String>? nombre;
 
-  final _i1.PrismaUnion<_i2.DateTimeWithAggregatesFilter, DateTime>?
+  final _i1.PrismaUnion<_i2.StringWithAggregatesFilter, String>?
       fechaVencimiento;
 
   final _i1.PrismaUnion<_i2.IntWithAggregatesFilter, int>? cantidad;
