@@ -1262,13 +1262,13 @@ class BotiquinCreateWithoutUserInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const BotiquinCreateWithoutUserInput({
     this.id,
-    required this.nombre,
+    this.nombre,
     this.medicamentos,
   });
 
   final String? id;
 
-  final String nombre;
+  final String? nombre;
 
   final _i2.MedicamentoCreateNestedManyWithoutBotiquinInput? medicamentos;
 
@@ -1321,13 +1321,13 @@ class BotiquinUncheckedCreateWithoutUserInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const BotiquinUncheckedCreateWithoutUserInput({
     this.id,
-    required this.nombre,
+    this.nombre,
     this.medicamentos,
   });
 
   final String? id;
 
-  final String nombre;
+  final String? nombre;
 
   final _i2.MedicamentoUncheckedCreateNestedManyWithoutBotiquinInput?
       medicamentos;
@@ -3269,14 +3269,14 @@ class UserCreateNestedOneWithoutBotiquinInput
 class BotiquinCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
   const BotiquinCreateInput({
     this.id,
-    required this.nombre,
+    this.nombre,
     this.medicamentos,
     required this.user,
   });
 
   final String? id;
 
-  final String nombre;
+  final String? nombre;
 
   final _i2.MedicamentoCreateNestedManyWithoutBotiquinInput? medicamentos;
 
@@ -3295,14 +3295,14 @@ class BotiquinUncheckedCreateInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const BotiquinUncheckedCreateInput({
     this.id,
-    required this.nombre,
+    this.nombre,
     required this.userId,
     this.medicamentos,
   });
 
   final String? id;
 
-  final String nombre;
+  final String? nombre;
 
   final String userId;
 
@@ -3322,13 +3322,13 @@ class BotiquinCreateManyInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const BotiquinCreateManyInput({
     this.id,
-    required this.nombre,
+    this.nombre,
     required this.userId,
   });
 
   final String? id;
 
-  final String nombre;
+  final String? nombre;
 
   final String userId;
 
@@ -4059,13 +4059,13 @@ class BotiquinCreateWithoutMedicamentosInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const BotiquinCreateWithoutMedicamentosInput({
     this.id,
-    required this.nombre,
+    this.nombre,
     required this.user,
   });
 
   final String? id;
 
-  final String nombre;
+  final String? nombre;
 
   final _i2.UserCreateNestedOneWithoutBotiquinInput user;
 
@@ -4081,13 +4081,13 @@ class BotiquinUncheckedCreateWithoutMedicamentosInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const BotiquinUncheckedCreateWithoutMedicamentosInput({
     this.id,
-    required this.nombre,
+    this.nombre,
     required this.userId,
   });
 
   final String? id;
 
-  final String nombre;
+  final String? nombre;
 
   final String userId;
 
