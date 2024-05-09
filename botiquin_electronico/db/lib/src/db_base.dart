@@ -8,8 +8,12 @@ import 'generated/prisma.dart';
 
 
 class Database {
-  Database()
-  : _db = PrismaClient(datasourceUrl: "postgres://postgres.pwgcbynbrriisskoatqf:Yr53Mgy,6e+aYP%@aws-0-sa-east-1.pooler.supabase.com:6543/postgres?pgbouncer=true&connection_limit=1"
+  Database(
+    {
+      required String datasourceUrl,
+    }
+  )
+  : _db = PrismaClient(datasourceUrl: datasourceUrl
 );
   PrismaClient _db;
 
