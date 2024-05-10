@@ -16,6 +16,17 @@ class BotiquinCountOutputType {
   Map<String, dynamic> toJson() => {'medicamentos': medicamentos};
 }
 
+class UserCountOutputType {
+  const UserCountOutputType({this.botiquin});
+
+  factory UserCountOutputType.fromJson(Map json) =>
+      UserCountOutputType(botiquin: json['botiquin']);
+
+  final int? botiquin;
+
+  Map<String, dynamic> toJson() => {'botiquin': botiquin};
+}
+
 enum QueryMode implements _i1.PrismaEnum {
   $default._('default'),
   insensitive._('insensitive');
@@ -495,21 +506,25 @@ class BotiquinWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
       };
 }
 
-class BotiquinNullableRelationFilter
+class BotiquinListRelationFilter
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const BotiquinNullableRelationFilter({
-    this.$is,
-    this.isNot,
+  const BotiquinListRelationFilter({
+    this.every,
+    this.some,
+    this.none,
   });
 
-  final _i1.PrismaUnion<_i2.BotiquinWhereInput, _i1.PrismaNull>? $is;
+  final _i2.BotiquinWhereInput? every;
 
-  final _i1.PrismaUnion<_i2.BotiquinWhereInput, _i1.PrismaNull>? isNot;
+  final _i2.BotiquinWhereInput? some;
+
+  final _i2.BotiquinWhereInput? none;
 
   @override
   Map<String, dynamic> toJson() => {
-        'is': $is,
-        'isNot': isNot,
+        'every': every,
+        'some': some,
+        'none': none,
       };
 }
 
@@ -540,8 +555,7 @@ class UserWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i1.PrismaUnion<_i2.StringFilter, String>? password;
 
-  final _i1.PrismaUnion<_i2.BotiquinNullableRelationFilter,
-      _i1.PrismaUnion<_i2.BotiquinWhereInput, _i1.PrismaNull>>? botiquin;
+  final _i2.BotiquinListRelationFilter? botiquin;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -584,8 +598,7 @@ class UserWhereUniqueInput
 
   final _i1.PrismaUnion<_i2.StringFilter, String>? password;
 
-  final _i1.PrismaUnion<_i2.BotiquinNullableRelationFilter,
-      _i1.PrismaUnion<_i2.BotiquinWhereInput, _i1.PrismaNull>>? botiquin;
+  final _i2.BotiquinListRelationFilter? botiquin;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -674,6 +687,16 @@ class SortOrderInput implements _i1.JsonConvertible<Map<String, dynamic>> {
       };
 }
 
+class BotiquinOrderByRelationAggregateInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const BotiquinOrderByRelationAggregateInput({this.$count});
+
+  final _i2.SortOrder? $count;
+
+  @override
+  Map<String, dynamic> toJson() => {'_count': $count};
+}
+
 class UserOrderByWithRelationInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserOrderByWithRelationInput({
@@ -692,7 +715,7 @@ class UserOrderByWithRelationInput
 
   final _i2.SortOrder? password;
 
-  final _i2.BotiquinOrderByWithRelationInput? botiquin;
+  final _i2.BotiquinOrderByRelationAggregateInput? botiquin;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -889,14 +912,94 @@ class BotiquinMedicamentosArgs
       };
 }
 
+class BotiquinWhereUniqueInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const BotiquinWhereUniqueInput({
+    this.id,
+    this.userId,
+    this.AND,
+    this.OR,
+    this.NOT,
+    this.nombre,
+    this.medicamentos,
+    this.user,
+  });
+
+  final String? id;
+
+  final String? userId;
+
+  final _i1
+      .PrismaUnion<_i2.BotiquinWhereInput, Iterable<_i2.BotiquinWhereInput>>?
+      AND;
+
+  final Iterable<_i2.BotiquinWhereInput>? OR;
+
+  final _i1
+      .PrismaUnion<_i2.BotiquinWhereInput, Iterable<_i2.BotiquinWhereInput>>?
+      NOT;
+
+  final _i1.PrismaUnion<_i2.StringFilter, String>? nombre;
+
+  final _i2.MedicamentoListRelationFilter? medicamentos;
+
+  final _i1.PrismaUnion<_i2.UserRelationFilter, _i2.UserWhereInput>? user;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'userId': userId,
+        'AND': AND,
+        'OR': OR,
+        'NOT': NOT,
+        'nombre': nombre,
+        'medicamentos': medicamentos,
+        'user': user,
+      };
+}
+
+enum BotiquinScalar<T> implements _i1.PrismaEnum, _i1.Reference<T> {
+  id<String>('id', 'Botiquin'),
+  nombre<String>('nombre', 'Botiquin'),
+  userId<String>('userId', 'Botiquin');
+
+  const BotiquinScalar(
+    this.name,
+    this.model,
+  );
+
+  @override
+  final String name;
+
+  @override
+  final String model;
+}
+
 class UserBotiquinArgs implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserBotiquinArgs({
     this.where,
+    this.orderBy,
+    this.cursor,
+    this.take,
+    this.skip,
+    this.distinct,
     this.select,
     this.include,
   });
 
   final _i2.BotiquinWhereInput? where;
+
+  final _i1.PrismaUnion<Iterable<_i2.BotiquinOrderByWithRelationInput>,
+      _i2.BotiquinOrderByWithRelationInput>? orderBy;
+
+  final _i2.BotiquinWhereUniqueInput? cursor;
+
+  final int? take;
+
+  final int? skip;
+
+  final _i1.PrismaUnion<_i2.BotiquinScalar, Iterable<_i2.BotiquinScalar>>?
+      distinct;
 
   final _i2.BotiquinSelect? select;
 
@@ -905,18 +1008,50 @@ class UserBotiquinArgs implements _i1.JsonConvertible<Map<String, dynamic>> {
   @override
   Map<String, dynamic> toJson() => {
         'where': where,
+        'orderBy': orderBy,
+        'cursor': cursor,
+        'take': take,
+        'skip': skip,
+        'distinct': distinct,
         'select': select,
         'include': include,
       };
 }
 
-class UserInclude implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const UserInclude({this.botiquin});
+class UserCountOutputTypeSelect
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const UserCountOutputTypeSelect({this.botiquin});
 
-  final _i1.PrismaUnion<bool, _i2.UserBotiquinArgs>? botiquin;
+  final bool? botiquin;
 
   @override
   Map<String, dynamic> toJson() => {'botiquin': botiquin};
+}
+
+class UserCountArgs implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const UserCountArgs({this.select});
+
+  final _i2.UserCountOutputTypeSelect? select;
+
+  @override
+  Map<String, dynamic> toJson() => {'select': select};
+}
+
+class UserInclude implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const UserInclude({
+    this.botiquin,
+    this.$count,
+  });
+
+  final _i1.PrismaUnion<bool, _i2.UserBotiquinArgs>? botiquin;
+
+  final _i1.PrismaUnion<bool, _i2.UserCountArgs>? $count;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'botiquin': botiquin,
+        '_count': $count,
+      };
 }
 
 class BotiquinUserArgs implements _i1.JsonConvertible<Map<String, dynamic>> {
@@ -1053,6 +1188,7 @@ class UserSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.name,
     this.password,
     this.botiquin,
+    this.$count,
   });
 
   final bool? id;
@@ -1065,6 +1201,8 @@ class UserSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i1.PrismaUnion<bool, _i2.UserBotiquinArgs>? botiquin;
 
+  final _i1.PrismaUnion<bool, _i2.UserCountArgs>? $count;
+
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -1072,6 +1210,7 @@ class UserSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
         'name': name,
         'password': password,
         'botiquin': botiquin,
+        '_count': $count,
       };
 }
 
@@ -1340,52 +1479,6 @@ class BotiquinUncheckedCreateWithoutUserInput
       };
 }
 
-class BotiquinWhereUniqueInput
-    implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const BotiquinWhereUniqueInput({
-    this.id,
-    this.userId,
-    this.AND,
-    this.OR,
-    this.NOT,
-    this.nombre,
-    this.medicamentos,
-    this.user,
-  });
-
-  final String? id;
-
-  final String? userId;
-
-  final _i1
-      .PrismaUnion<_i2.BotiquinWhereInput, Iterable<_i2.BotiquinWhereInput>>?
-      AND;
-
-  final Iterable<_i2.BotiquinWhereInput>? OR;
-
-  final _i1
-      .PrismaUnion<_i2.BotiquinWhereInput, Iterable<_i2.BotiquinWhereInput>>?
-      NOT;
-
-  final _i1.PrismaUnion<_i2.StringFilter, String>? nombre;
-
-  final _i2.MedicamentoListRelationFilter? medicamentos;
-
-  final _i1.PrismaUnion<_i2.UserRelationFilter, _i2.UserWhereInput>? user;
-
-  @override
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'userId': userId,
-        'AND': AND,
-        'OR': OR,
-        'NOT': NOT,
-        'nombre': nombre,
-        'medicamentos': medicamentos,
-        'user': user,
-      };
-}
-
 class BotiquinCreateOrConnectWithoutUserInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const BotiquinCreateOrConnectWithoutUserInput({
@@ -1405,25 +1498,72 @@ class BotiquinCreateOrConnectWithoutUserInput
       };
 }
 
-class BotiquinCreateNestedOneWithoutUserInput
+class BotiquinCreateManyUserInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const BotiquinCreateNestedOneWithoutUserInput({
+  const BotiquinCreateManyUserInput({
+    this.id,
+    this.nombre,
+  });
+
+  final String? id;
+
+  final String? nombre;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'nombre': nombre,
+      };
+}
+
+class BotiquinCreateManyUserInputEnvelope
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const BotiquinCreateManyUserInputEnvelope({
+    required this.data,
+    this.skipDuplicates,
+  });
+
+  final _i1.PrismaUnion<_i2.BotiquinCreateManyUserInput,
+      Iterable<_i2.BotiquinCreateManyUserInput>> data;
+
+  final bool? skipDuplicates;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'data': data,
+        'skipDuplicates': skipDuplicates,
+      };
+}
+
+class BotiquinCreateNestedManyWithoutUserInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const BotiquinCreateNestedManyWithoutUserInput({
     this.create,
     this.connectOrCreate,
+    this.createMany,
     this.connect,
   });
 
-  final _i1.PrismaUnion<_i2.BotiquinCreateWithoutUserInput,
-      _i2.BotiquinUncheckedCreateWithoutUserInput>? create;
+  final _i1.PrismaUnion<
+      _i2.BotiquinCreateWithoutUserInput,
+      _i1.PrismaUnion<
+          Iterable<_i2.BotiquinCreateWithoutUserInput>,
+          _i1.PrismaUnion<_i2.BotiquinUncheckedCreateWithoutUserInput,
+              Iterable<_i2.BotiquinUncheckedCreateWithoutUserInput>>>>? create;
 
-  final _i2.BotiquinCreateOrConnectWithoutUserInput? connectOrCreate;
+  final _i1.PrismaUnion<_i2.BotiquinCreateOrConnectWithoutUserInput,
+      Iterable<_i2.BotiquinCreateOrConnectWithoutUserInput>>? connectOrCreate;
 
-  final _i2.BotiquinWhereUniqueInput? connect;
+  final _i2.BotiquinCreateManyUserInputEnvelope? createMany;
+
+  final _i1.PrismaUnion<_i2.BotiquinWhereUniqueInput,
+      Iterable<_i2.BotiquinWhereUniqueInput>>? connect;
 
   @override
   Map<String, dynamic> toJson() => {
         'create': create,
         'connectOrCreate': connectOrCreate,
+        'createMany': createMany,
         'connect': connect,
       };
 }
@@ -1445,7 +1585,7 @@ class UserCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final String password;
 
-  final _i2.BotiquinCreateNestedOneWithoutUserInput? botiquin;
+  final _i2.BotiquinCreateNestedManyWithoutUserInput? botiquin;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -1457,25 +1597,35 @@ class UserCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
       };
 }
 
-class BotiquinUncheckedCreateNestedOneWithoutUserInput
+class BotiquinUncheckedCreateNestedManyWithoutUserInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const BotiquinUncheckedCreateNestedOneWithoutUserInput({
+  const BotiquinUncheckedCreateNestedManyWithoutUserInput({
     this.create,
     this.connectOrCreate,
+    this.createMany,
     this.connect,
   });
 
-  final _i1.PrismaUnion<_i2.BotiquinCreateWithoutUserInput,
-      _i2.BotiquinUncheckedCreateWithoutUserInput>? create;
+  final _i1.PrismaUnion<
+      _i2.BotiquinCreateWithoutUserInput,
+      _i1.PrismaUnion<
+          Iterable<_i2.BotiquinCreateWithoutUserInput>,
+          _i1.PrismaUnion<_i2.BotiquinUncheckedCreateWithoutUserInput,
+              Iterable<_i2.BotiquinUncheckedCreateWithoutUserInput>>>>? create;
 
-  final _i2.BotiquinCreateOrConnectWithoutUserInput? connectOrCreate;
+  final _i1.PrismaUnion<_i2.BotiquinCreateOrConnectWithoutUserInput,
+      Iterable<_i2.BotiquinCreateOrConnectWithoutUserInput>>? connectOrCreate;
 
-  final _i2.BotiquinWhereUniqueInput? connect;
+  final _i2.BotiquinCreateManyUserInputEnvelope? createMany;
+
+  final _i1.PrismaUnion<_i2.BotiquinWhereUniqueInput,
+      Iterable<_i2.BotiquinWhereUniqueInput>>? connect;
 
   @override
   Map<String, dynamic> toJson() => {
         'create': create,
         'connectOrCreate': connectOrCreate,
+        'createMany': createMany,
         'connect': connect,
       };
 }
@@ -1498,7 +1648,7 @@ class UserUncheckedCreateInput
 
   final String password;
 
-  final _i2.BotiquinUncheckedCreateNestedOneWithoutUserInput? botiquin;
+  final _i2.BotiquinUncheckedCreateNestedManyWithoutUserInput? botiquin;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -2029,13 +2179,15 @@ class BotiquinUncheckedUpdateWithoutUserInput
       };
 }
 
-class BotiquinUpsertWithoutUserInput
+class BotiquinUpsertWithWhereUniqueWithoutUserInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const BotiquinUpsertWithoutUserInput({
+  const BotiquinUpsertWithWhereUniqueWithoutUserInput({
+    required this.where,
     required this.update,
     required this.create,
-    this.where,
   });
+
+  final _i2.BotiquinWhereUniqueInput where;
 
   final _i1.PrismaUnion<_i2.BotiquinUpdateWithoutUserInput,
       _i2.BotiquinUncheckedUpdateWithoutUserInput> update;
@@ -2043,24 +2195,22 @@ class BotiquinUpsertWithoutUserInput
   final _i1.PrismaUnion<_i2.BotiquinCreateWithoutUserInput,
       _i2.BotiquinUncheckedCreateWithoutUserInput> create;
 
-  final _i2.BotiquinWhereInput? where;
-
   @override
   Map<String, dynamic> toJson() => {
+        'where': where,
         'update': update,
         'create': create,
-        'where': where,
       };
 }
 
-class BotiquinUpdateToOneWithWhereWithoutUserInput
+class BotiquinUpdateWithWhereUniqueWithoutUserInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const BotiquinUpdateToOneWithWhereWithoutUserInput({
-    this.where,
+  const BotiquinUpdateWithWhereUniqueWithoutUserInput({
+    required this.where,
     required this.data,
   });
 
-  final _i2.BotiquinWhereInput? where;
+  final _i2.BotiquinWhereUniqueInput where;
 
   final _i1.PrismaUnion<_i2.BotiquinUpdateWithoutUserInput,
       _i2.BotiquinUncheckedUpdateWithoutUserInput> data;
@@ -2072,45 +2222,162 @@ class BotiquinUpdateToOneWithWhereWithoutUserInput
       };
 }
 
-class BotiquinUpdateOneWithoutUserNestedInput
+class BotiquinScalarWhereInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const BotiquinUpdateOneWithoutUserNestedInput({
+  const BotiquinScalarWhereInput({
+    this.AND,
+    this.OR,
+    this.NOT,
+    this.id,
+    this.nombre,
+    this.userId,
+  });
+
+  final _i1.PrismaUnion<_i2.BotiquinScalarWhereInput,
+      Iterable<_i2.BotiquinScalarWhereInput>>? AND;
+
+  final Iterable<_i2.BotiquinScalarWhereInput>? OR;
+
+  final _i1.PrismaUnion<_i2.BotiquinScalarWhereInput,
+      Iterable<_i2.BotiquinScalarWhereInput>>? NOT;
+
+  final _i1.PrismaUnion<_i2.StringFilter, String>? id;
+
+  final _i1.PrismaUnion<_i2.StringFilter, String>? nombre;
+
+  final _i1.PrismaUnion<_i2.StringFilter, String>? userId;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'AND': AND,
+        'OR': OR,
+        'NOT': NOT,
+        'id': id,
+        'nombre': nombre,
+        'userId': userId,
+      };
+}
+
+class BotiquinUpdateManyMutationInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const BotiquinUpdateManyMutationInput({
+    this.id,
+    this.nombre,
+  });
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? id;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? nombre;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'nombre': nombre,
+      };
+}
+
+class BotiquinUncheckedUpdateManyWithoutUserInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const BotiquinUncheckedUpdateManyWithoutUserInput({
+    this.id,
+    this.nombre,
+  });
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? id;
+
+  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? nombre;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'nombre': nombre,
+      };
+}
+
+class BotiquinUpdateManyWithWhereWithoutUserInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const BotiquinUpdateManyWithWhereWithoutUserInput({
+    required this.where,
+    required this.data,
+  });
+
+  final _i2.BotiquinScalarWhereInput where;
+
+  final _i1.PrismaUnion<_i2.BotiquinUpdateManyMutationInput,
+      _i2.BotiquinUncheckedUpdateManyWithoutUserInput> data;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'where': where,
+        'data': data,
+      };
+}
+
+class BotiquinUpdateManyWithoutUserNestedInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const BotiquinUpdateManyWithoutUserNestedInput({
     this.create,
     this.connectOrCreate,
     this.upsert,
+    this.createMany,
+    this.set,
     this.disconnect,
     this.delete,
     this.connect,
     this.update,
+    this.updateMany,
+    this.deleteMany,
   });
 
-  final _i1.PrismaUnion<_i2.BotiquinCreateWithoutUserInput,
-      _i2.BotiquinUncheckedCreateWithoutUserInput>? create;
-
-  final _i2.BotiquinCreateOrConnectWithoutUserInput? connectOrCreate;
-
-  final _i2.BotiquinUpsertWithoutUserInput? upsert;
-
-  final _i1.PrismaUnion<bool, _i2.BotiquinWhereInput>? disconnect;
-
-  final _i1.PrismaUnion<bool, _i2.BotiquinWhereInput>? delete;
-
-  final _i2.BotiquinWhereUniqueInput? connect;
-
   final _i1.PrismaUnion<
-      _i2.BotiquinUpdateToOneWithWhereWithoutUserInput,
-      _i1.PrismaUnion<_i2.BotiquinUpdateWithoutUserInput,
-          _i2.BotiquinUncheckedUpdateWithoutUserInput>>? update;
+      _i2.BotiquinCreateWithoutUserInput,
+      _i1.PrismaUnion<
+          Iterable<_i2.BotiquinCreateWithoutUserInput>,
+          _i1.PrismaUnion<_i2.BotiquinUncheckedCreateWithoutUserInput,
+              Iterable<_i2.BotiquinUncheckedCreateWithoutUserInput>>>>? create;
+
+  final _i1.PrismaUnion<_i2.BotiquinCreateOrConnectWithoutUserInput,
+      Iterable<_i2.BotiquinCreateOrConnectWithoutUserInput>>? connectOrCreate;
+
+  final _i1.PrismaUnion<_i2.BotiquinUpsertWithWhereUniqueWithoutUserInput,
+      Iterable<_i2.BotiquinUpsertWithWhereUniqueWithoutUserInput>>? upsert;
+
+  final _i2.BotiquinCreateManyUserInputEnvelope? createMany;
+
+  final _i1.PrismaUnion<_i2.BotiquinWhereUniqueInput,
+      Iterable<_i2.BotiquinWhereUniqueInput>>? set;
+
+  final _i1.PrismaUnion<_i2.BotiquinWhereUniqueInput,
+      Iterable<_i2.BotiquinWhereUniqueInput>>? disconnect;
+
+  final _i1.PrismaUnion<_i2.BotiquinWhereUniqueInput,
+      Iterable<_i2.BotiquinWhereUniqueInput>>? delete;
+
+  final _i1.PrismaUnion<_i2.BotiquinWhereUniqueInput,
+      Iterable<_i2.BotiquinWhereUniqueInput>>? connect;
+
+  final _i1.PrismaUnion<_i2.BotiquinUpdateWithWhereUniqueWithoutUserInput,
+      Iterable<_i2.BotiquinUpdateWithWhereUniqueWithoutUserInput>>? update;
+
+  final _i1.PrismaUnion<_i2.BotiquinUpdateManyWithWhereWithoutUserInput,
+      Iterable<_i2.BotiquinUpdateManyWithWhereWithoutUserInput>>? updateMany;
+
+  final _i1.PrismaUnion<_i2.BotiquinScalarWhereInput,
+      Iterable<_i2.BotiquinScalarWhereInput>>? deleteMany;
 
   @override
   Map<String, dynamic> toJson() => {
         'create': create,
         'connectOrCreate': connectOrCreate,
         'upsert': upsert,
+        'createMany': createMany,
+        'set': set,
         'disconnect': disconnect,
         'delete': delete,
         'connect': connect,
         'update': update,
+        'updateMany': updateMany,
+        'deleteMany': deleteMany,
       };
 }
 
@@ -2134,7 +2401,7 @@ class UserUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? password;
 
-  final _i2.BotiquinUpdateOneWithoutUserNestedInput? botiquin;
+  final _i2.BotiquinUpdateManyWithoutUserNestedInput? botiquin;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -2146,45 +2413,71 @@ class UserUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
       };
 }
 
-class BotiquinUncheckedUpdateOneWithoutUserNestedInput
+class BotiquinUncheckedUpdateManyWithoutUserNestedInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const BotiquinUncheckedUpdateOneWithoutUserNestedInput({
+  const BotiquinUncheckedUpdateManyWithoutUserNestedInput({
     this.create,
     this.connectOrCreate,
     this.upsert,
+    this.createMany,
+    this.set,
     this.disconnect,
     this.delete,
     this.connect,
     this.update,
+    this.updateMany,
+    this.deleteMany,
   });
 
-  final _i1.PrismaUnion<_i2.BotiquinCreateWithoutUserInput,
-      _i2.BotiquinUncheckedCreateWithoutUserInput>? create;
-
-  final _i2.BotiquinCreateOrConnectWithoutUserInput? connectOrCreate;
-
-  final _i2.BotiquinUpsertWithoutUserInput? upsert;
-
-  final _i1.PrismaUnion<bool, _i2.BotiquinWhereInput>? disconnect;
-
-  final _i1.PrismaUnion<bool, _i2.BotiquinWhereInput>? delete;
-
-  final _i2.BotiquinWhereUniqueInput? connect;
-
   final _i1.PrismaUnion<
-      _i2.BotiquinUpdateToOneWithWhereWithoutUserInput,
-      _i1.PrismaUnion<_i2.BotiquinUpdateWithoutUserInput,
-          _i2.BotiquinUncheckedUpdateWithoutUserInput>>? update;
+      _i2.BotiquinCreateWithoutUserInput,
+      _i1.PrismaUnion<
+          Iterable<_i2.BotiquinCreateWithoutUserInput>,
+          _i1.PrismaUnion<_i2.BotiquinUncheckedCreateWithoutUserInput,
+              Iterable<_i2.BotiquinUncheckedCreateWithoutUserInput>>>>? create;
+
+  final _i1.PrismaUnion<_i2.BotiquinCreateOrConnectWithoutUserInput,
+      Iterable<_i2.BotiquinCreateOrConnectWithoutUserInput>>? connectOrCreate;
+
+  final _i1.PrismaUnion<_i2.BotiquinUpsertWithWhereUniqueWithoutUserInput,
+      Iterable<_i2.BotiquinUpsertWithWhereUniqueWithoutUserInput>>? upsert;
+
+  final _i2.BotiquinCreateManyUserInputEnvelope? createMany;
+
+  final _i1.PrismaUnion<_i2.BotiquinWhereUniqueInput,
+      Iterable<_i2.BotiquinWhereUniqueInput>>? set;
+
+  final _i1.PrismaUnion<_i2.BotiquinWhereUniqueInput,
+      Iterable<_i2.BotiquinWhereUniqueInput>>? disconnect;
+
+  final _i1.PrismaUnion<_i2.BotiquinWhereUniqueInput,
+      Iterable<_i2.BotiquinWhereUniqueInput>>? delete;
+
+  final _i1.PrismaUnion<_i2.BotiquinWhereUniqueInput,
+      Iterable<_i2.BotiquinWhereUniqueInput>>? connect;
+
+  final _i1.PrismaUnion<_i2.BotiquinUpdateWithWhereUniqueWithoutUserInput,
+      Iterable<_i2.BotiquinUpdateWithWhereUniqueWithoutUserInput>>? update;
+
+  final _i1.PrismaUnion<_i2.BotiquinUpdateManyWithWhereWithoutUserInput,
+      Iterable<_i2.BotiquinUpdateManyWithWhereWithoutUserInput>>? updateMany;
+
+  final _i1.PrismaUnion<_i2.BotiquinScalarWhereInput,
+      Iterable<_i2.BotiquinScalarWhereInput>>? deleteMany;
 
   @override
   Map<String, dynamic> toJson() => {
         'create': create,
         'connectOrCreate': connectOrCreate,
         'upsert': upsert,
+        'createMany': createMany,
+        'set': set,
         'disconnect': disconnect,
         'delete': delete,
         'connect': connect,
         'update': update,
+        'updateMany': updateMany,
+        'deleteMany': deleteMany,
       };
 }
 
@@ -2209,7 +2502,7 @@ class UserUncheckedUpdateInput
 
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? password;
 
-  final _i2.BotiquinUncheckedUpdateOneWithoutUserNestedInput? botiquin;
+  final _i2.BotiquinUncheckedUpdateManyWithoutUserNestedInput? botiquin;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -3155,23 +3448,6 @@ class AggregateUserSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
       };
 }
 
-enum BotiquinScalar<T> implements _i1.PrismaEnum, _i1.Reference<T> {
-  id<String>('id', 'Botiquin'),
-  nombre<String>('nombre', 'Botiquin'),
-  userId<String>('userId', 'Botiquin');
-
-  const BotiquinScalar(
-    this.name,
-    this.model,
-  );
-
-  @override
-  final String name;
-
-  @override
-  final String model;
-}
-
 class UserCreateWithoutBotiquinInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserCreateWithoutBotiquinInput({
@@ -3524,24 +3800,6 @@ class BotiquinUncheckedUpdateInput
         'nombre': nombre,
         'userId': userId,
         'medicamentos': medicamentos,
-      };
-}
-
-class BotiquinUpdateManyMutationInput
-    implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const BotiquinUpdateManyMutationInput({
-    this.id,
-    this.nombre,
-  });
-
-  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? id;
-
-  final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>? nombre;
-
-  @override
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'nombre': nombre,
       };
 }
 

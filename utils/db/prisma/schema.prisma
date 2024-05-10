@@ -4,9 +4,12 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+
+
 generator client {
   provider = "dart run orm"
   output = "../lib/src/generated"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
 }
 
 datasource db {
@@ -21,7 +24,7 @@ model User {
   email     String   @unique
   name      String?
   password  String
-  botiquin Botiquin?
+  botiquin Botiquin[]
 }
 
 model Botiquin {

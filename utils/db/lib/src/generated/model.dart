@@ -52,7 +52,7 @@ class Medicamento {
 
 class Botiquin {
   const Botiquin({
-    required this.id,
+    this.id,
     this.nombre,
     this.userId,
     this.medicamentos,
@@ -72,7 +72,7 @@ class Botiquin {
             : null,
       );
 
-  final String id;
+  final String? id;
 
   final String? nombre;
 
@@ -101,6 +101,7 @@ class User {
     this.name,
     this.password,
     this.botiquin,
+    this.$count,
   });
 
   factory User.fromJson(Map json) => User(
@@ -108,8 +109,10 @@ class User {
         email: json['email'],
         name: json['name'],
         password: json['password'],
-        botiquin: json['botiquin'] is Map
-            ? _i1.Botiquin.fromJson(json['botiquin'])
+        botiquin: (json['botiquin'] as Iterable?)
+            ?.map((json) => _i1.Botiquin.fromJson(json)),
+        $count: json['_count'] is Map
+            ? _i2.UserCountOutputType.fromJson(json['_count'])
             : null,
       );
 
@@ -121,13 +124,16 @@ class User {
 
   final String? password;
 
-  final _i1.Botiquin? botiquin;
+  final Iterable<_i1.Botiquin>? botiquin;
+
+  final _i2.UserCountOutputType? $count;
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'email': email,
         'name': name,
         'password': password,
-        'botiquin': botiquin?.toJson(),
+        'botiquin': botiquin?.map((e) => e.toJson()),
+        '_count': $count?.toJson(),
       };
 }
