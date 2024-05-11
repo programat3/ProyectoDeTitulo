@@ -96,7 +96,7 @@ class Botiquin {
 
 class User {
   const User({
-    this.id,
+    required this.id,
     this.email,
     this.name,
     this.password,
@@ -116,7 +116,7 @@ class User {
             : null,
       );
 
-  final String? id;
+  final String id;
 
   final String? email;
 

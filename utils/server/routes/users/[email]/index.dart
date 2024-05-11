@@ -17,7 +17,6 @@ Future <Response> onRequest(
   final database = context.read<Database>();
   final user = await database.getUserByEmail(email: context.request.uri.pathSegments.last);
   if(user == null){
-    
     return Response(statusCode: 409);
   }
   else{
