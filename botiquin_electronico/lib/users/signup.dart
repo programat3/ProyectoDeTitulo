@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
-
-
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
 
@@ -31,20 +29,22 @@ class SignUp extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Iniciar sesión',
+                    'Registra tu cuenta',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 20), // Añadir un espacio entre el texto y el formulario
+                  const SizedBox(
+                      height:
+                          20), // Añadir un espacio entre el texto y el formulario
                   const MyCustomForm(),
                 ],
+              ),
+            ),
           ),
         ),
       ),
-    ),
-    ),
     );
   }
 }
@@ -83,11 +83,11 @@ class MyCustomFormState extends State<MyCustomForm> {
           children: [
             TextFormField(
               decoration: const InputDecoration(
-                labelText: 'Email',
-                hintText: 'Ingrese su email',
-                icon: const Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
-                        child: const Icon(Icons.email))),
+                  labelText: 'Email',
+                  hintText: 'Ingrese su email',
+                  icon: const Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: const Icon(Icons.email))),
               // The validator receives the text that the user has entered.
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -99,13 +99,13 @@ class MyCustomFormState extends State<MyCustomForm> {
             ),
             TextFormField(
               decoration: const InputDecoration(
-                labelText: 'Contraseña',
-                hintText: 'Ingrese su contraseña',
-                icon: const Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
-                        child: const Icon(Icons.lock))),
-                obscureText: true,
-              
+                  labelText: 'Contraseña',
+                  hintText: 'Ingrese su contraseña',
+                  icon: const Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: const Icon(Icons.lock))),
+              obscureText: true,
+
               // The validator receives the text that the user has entered.
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -114,28 +114,25 @@ class MyCustomFormState extends State<MyCustomForm> {
                 password = value;
                 return null;
               },
-        
             ),
             TextFormField(
               decoration: const InputDecoration(
-                labelText: 'Repita su contraseña',
-                hintText: 'Repita su contraseña',
-                icon: const Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
-                        child: const Icon(Icons.lock))),
-                obscureText: true,
-              
+                  labelText: 'Repita su contraseña',
+                  hintText: 'Repita su contraseña',
+                  icon: const Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: const Icon(Icons.lock))),
+              obscureText: true,
+
               // The validator receives the text that the user has entered.
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Porfavor ingrese su contraseña';
-                }
-                else if(value != password){
+                } else if (value != password) {
                   return 'Las contraseñas no coinciden';
                 }
                 return null;
               },
-        
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 18),
@@ -161,16 +158,16 @@ class MyCustomFormState extends State<MyCustomForm> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-                backgroundColor: Color(0xFF2879C2),
-                elevation: 0,
-                side: BorderSide(color: Colors.white, width: 2),
-              ),
+                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                  backgroundColor: Color(0xFF2879C2),
+                  elevation: 0,
+                  side: BorderSide(color: Colors.white, width: 2),
+                ),
                 child: Text(
-                'Crear Cuenta',
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                  'Crear Cuenta',
+                  style: TextStyle(fontSize: 18, color: Colors.white),
+                ),
               ),
-            ),
             ),
           ],
         ),
