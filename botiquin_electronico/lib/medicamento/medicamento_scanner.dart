@@ -3,6 +3,7 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:supabase/supabase.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class MedicamentoSKU extends StatefulWidget {
   const MedicamentoSKU({super.key});
@@ -13,6 +14,21 @@ class MedicamentoSKU extends StatefulWidget {
 
 class _MedicamentoSKUState extends State<MedicamentoSKU> {
   String barcode = '';
+  String med = '';
+  var data = '';
+  Future<String> getMedicamento(String sku) async{
+    final supabase = Supabase.instance.client;
+    med = '';
+    final data = await supabase.from('RepSKU').select().eq('SKU', sku);
+                          if (data.length == 0) {
+                              print('error ${data}, with barcode ${sku}');
+                            } 
+                          else {
+                              print('Medicamento: ${data[0]['Nombre']}');
+                              med = data[0]['Nombre']; 
+                            }
+    return(med);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,13 +73,16 @@ class _MedicamentoSKUState extends State<MedicamentoSKU> {
                           true,
                           ScanMode.BARCODE,
                         );
-                        print(barcodeScanRes);
+                      barcode = barcodeScanRes;
+                      barcode = barcode.trim();
+                      data = await getMedicamento(barcode);
                       } on PlatformException {
                         barcodeScanRes =
                             'Error al escanear el código de barras.';
                       }
-                      setState(() {
-                        barcode = barcodeScanRes;
+                      
+                      setState((){
+                        med = data;
                       });
                     },
                     style: ElevatedButton.styleFrom(
@@ -84,7 +103,7 @@ class _MedicamentoSKUState extends State<MedicamentoSKU> {
                       height:
                           10), // Espacio entre el botón y el texto del código de barras
                   Text(
-                    barcode,
+                    med,
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black,
