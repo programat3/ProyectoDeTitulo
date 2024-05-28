@@ -2,13 +2,17 @@ import 'package:botiquin_electronico/signed_users/menu.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:crypto/crypto.dart';
+
+
 
 class Login extends StatelessWidget {
   const Login({super.key});
-
   @override
   Widget build(BuildContext context) {
+    
+
     return MaterialApp(
       home: Scaffold(
         body: Container(
@@ -72,6 +76,7 @@ class MyCustomFormState extends State<MyCustomForm> {
   Widget build(BuildContext context) {
     var email;
     var password;
+    SharedPreferences prefs;
     // Build a Form widget using the _formKey created above.
     return Form(
       key: _formKey,
@@ -132,6 +137,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                             const SnackBar(
                                 content: Text('Inicio de sesión exitoso')),
                           );
+                          prefs = await SharedPreferences.getInstance();
+                          prefs.setString('email', email);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
