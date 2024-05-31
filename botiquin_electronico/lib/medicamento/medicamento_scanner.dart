@@ -1,6 +1,7 @@
+import 'package:botiquin_electronico/medicamento/medicamentoEscaneado.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:supabase/supabase.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -61,7 +62,8 @@ class _MedicamentoSKUState extends State<MedicamentoSKU> {
                   ),
                   const SizedBox(
                       height:
-                          20), // Añadir un espacio entre el texto y los botones
+                          20),
+                   // Añadir un espacio entre el texto y los botones
                   ElevatedButton(
                     onPressed: () async {
                       String barcodeScanRes;
@@ -102,13 +104,31 @@ class _MedicamentoSKUState extends State<MedicamentoSKU> {
                   const SizedBox(
                       height:
                           10), // Espacio entre el botón y el texto del código de barras
-                  Text(
-                    med,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black,
-                    ),
-                  ),
+                   Visibility(
+                    visible: med != '',
+                     child: ElevatedButton(
+                      onPressed: () async {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Medicina(med)),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 16,
+                            horizontal:
+                                20), // Ajusta los valores de padding según sea necesario
+                        backgroundColor: Color(0xFF2879C2),
+                        elevation: 0,
+                        side: BorderSide(color: Colors.white, width: 2),
+                      ),
+                      child: Text(
+                        'Información de $med',
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      ),
+                     ),
+                   ),
                 ],
               ),
             ),

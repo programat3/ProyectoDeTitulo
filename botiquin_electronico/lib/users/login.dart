@@ -2,7 +2,6 @@ import 'package:botiquin_electronico/signed_users/menu.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:crypto/crypto.dart';
 
 
@@ -74,9 +73,9 @@ class MyCustomFormState extends State<MyCustomForm> {
 
   @override
   Widget build(BuildContext context) {
+    late String emailU;
     var email;
     var password;
-    SharedPreferences prefs;
     // Build a Form widget using the _formKey created above.
     return Form(
       key: _formKey,
@@ -131,18 +130,17 @@ class MyCustomFormState extends State<MyCustomForm> {
                           .get(Uri.parse('http://10.0.2.2:8080/users/$email'));
                       if (response.statusCode == 200) {
                         final user = jsonDecode(response.body);
+                        emailU = user['email'];
                         if (user['password'] ==
                             sha256.convert(utf8.encode(password)).toString()) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                                 content: Text('Inicio de sesión exitoso')),
                           );
-                          prefs = await SharedPreferences.getInstance();
-                          prefs.setString('email', email);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Menu()),
+                                builder: (context) => Menu(emailU)),
                           );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
