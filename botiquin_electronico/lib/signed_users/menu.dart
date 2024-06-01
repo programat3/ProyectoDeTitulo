@@ -9,8 +9,6 @@ class Menu extends StatefulWidget {
   State<Menu> createState() => _MyAppState();
 }
 
-Future<String?> getUserName() async {
-}
 
 class _MyAppState extends State<Menu> {
   @override
