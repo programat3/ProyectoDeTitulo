@@ -1,55 +1,53 @@
 import 'package:flutter/material.dart';
 
-
+import 'package:supabase/supabase.dart';
 
 class Medicina extends StatelessWidget {
-  final nombre;
+  final String nombre;
   const Medicina(this.nombre,{super.key});
+
 
   @override
   Widget build(BuildContext context) {
+    final _future = SupabaseClient("https://lpcsofclckzmbbdchaog.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxwY3NvZmNsY2t6bWJiZGNoYW9nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTU0NjExMzMsImV4cCI6MjAzMTAzNzEzM30.eCySPQNzOEgBWlDDRJ73EbX59Y7sfFGvRe25RQr0pS8").from('RepSKU').select().eq('SKU', nombre);
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          color: Color(0xFF2879C2), // Color de fondo azul
-        ),
-        child: Center(
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width *
-                1, // Ancho máximo del contenedor
-            child: Container(
-              margin: const EdgeInsets.all(20.0),
-              padding: const EdgeInsets.all(20.0),
-              decoration: BoxDecoration(
-                color: Color(0xFFF2E0D7), // Color de fondo azul claro
-                borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(color: Colors.white, width: 2),
-              ),
-              child: Column(
+      body: FutureBuilder(
+        future: _future,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else if (snapshot.hasData) {
+              final data = snapshot.data as List;
+              if (data.isEmpty) {
+                return Text('No se encontró el medicamento');
+              }
+              final medicamento = data[0];
+              return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Medicamento Escaneado',
+                    'Medicamento: ${medicamento['Nombre']}',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(
-                      height:
-                          20), // Añadir un espacio entre el texto y los botones
+                  const SizedBox(height: 20),
                   Text(
-                    'Medicamento: $nombre',
+                    'SKU: ${medicamento['SKU']}',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  const SizedBox(height: 20),
                 ],
-              ),
-            ),
-          ),
-        ),
+              );
+            }
+          }
+          return const CircularProgressIndicator();
+        },
       ),
     );
   }

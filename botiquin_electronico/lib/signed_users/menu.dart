@@ -1,5 +1,4 @@
 import 'package:botiquin_electronico/medicamento/medicamento_scanner.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
 class Menu extends StatefulWidget {
@@ -11,9 +10,6 @@ class Menu extends StatefulWidget {
 }
 
 Future<String?> getUserName() async {
-  SharedPreferences prefs;
-  prefs = await SharedPreferences.getInstance();
-  return prefs.getString('email');
 }
 
 class _MyAppState extends State<Menu> {

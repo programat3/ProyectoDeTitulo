@@ -2,9 +2,8 @@ import 'package:botiquin_electronico/medicamento/medicamentoEscaneado.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'dart:async';
 import 'package:flutter/services.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+
 
 class MedicamentoSKU extends StatefulWidget {
   const MedicamentoSKU({super.key});
@@ -14,22 +13,10 @@ class MedicamentoSKU extends StatefulWidget {
 }
 
 class _MedicamentoSKUState extends State<MedicamentoSKU> {
+  
   String barcode = '';
   String med = '';
   var data = '';
-  Future<String> getMedicamento(String sku) async{
-    final supabase = Supabase.instance.client;
-    med = '';
-    final data = await supabase.from('RepSKU').select().eq('SKU', sku);
-                          if (data.length == 0) {
-                              print('error ${data}, with barcode ${sku}');
-                            } 
-                          else {
-                              print('Medicamento: ${data[0]['Nombre']}');
-                              med = data[0]['Nombre']; 
-                            }
-    return(med);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,14 +64,13 @@ class _MedicamentoSKUState extends State<MedicamentoSKU> {
                         );
                       barcode = barcodeScanRes;
                       barcode = barcode.trim();
-                      data = await getMedicamento(barcode);
                       } on PlatformException {
                         barcodeScanRes =
                             'Error al escanear el código de barras.';
                       }
                       
                       setState((){
-                        med = data;
+                        med = barcode;
                       });
                     },
                     style: ElevatedButton.styleFrom(
