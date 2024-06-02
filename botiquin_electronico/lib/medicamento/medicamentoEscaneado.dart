@@ -1,3 +1,4 @@
+import 'package:botiquin_electronico/medicamento/medicamento_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 
@@ -9,6 +10,7 @@ class Medicina extends StatelessWidget {
   Widget build(BuildContext context) {
     final gemini = Gemini.instance;
     return Scaffold(
+      bottomNavigationBar: SizedBox(height: 128, width: 128,child: BackButton(color: Colors.deepPurple, onPressed:()=>Navigator.push(context, MaterialPageRoute(builder: (context) => MedicamentoSKU(),) ),)),
       body: FutureBuilder(
         future: gemini.text('Para qué sirve $nombre en sólo 35 caracteres').then((value) => value?.output ?? 'No se encontró la descripción'), // Cambiar la descripción
         builder: (context, snapshot) {
