@@ -1,20 +1,24 @@
+import 'package:botiquin_electronico/keys.dart';
 import 'package:botiquin_electronico/medicamento/medicamento_scanner.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'users/login.dart';
 import 'users/signup.dart';
-import 'package:dart_openai/dart_openai.dart';
 
 Future<void> main() async {
   await Supabase.initialize(
     url: 'https://lpcsofclckzmbbdchaog.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxwY3NvZmNsY2t6bWJiZGNoYW9nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTU0NjExMzMsImV4cCI6MjAzMTAzNzEzM30.eCySPQNzOEgBWlDDRJ73EbX59Y7sfFGvRe25RQr0pS8',
+    anonKey: supabase_key,
   );
-  OpenAI.apiKey = "sk-proj-2aXLgIMCLi7oI84csqSkT3BlbkFJukFYuVSmL6MSIiS7kRDS";
+
+  Gemini.init(apiKey: gemini_key);
+  
+  
   runApp(const MaterialApp(
-    home: MyApp(),
-  ));
-}
+      home: MyApp(),
+    ));
+  } 
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
