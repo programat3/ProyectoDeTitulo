@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/services.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 
 class MedicamentoSKU extends StatefulWidget {
@@ -93,13 +94,6 @@ class _MedicamentoSKUState extends State<MedicamentoSKU> {
                    Visibility(
                     visible: med != '',
                      child: ElevatedButton(
-                      onPressed: () async {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Medicina(med)),
-                        );
-                      },
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.symmetric(
                             vertical: 16,
@@ -109,10 +103,33 @@ class _MedicamentoSKUState extends State<MedicamentoSKU> {
                         elevation: 0,
                         side: BorderSide(color: Colors.white, width: 2),
                       ),
-                      child: Text(
-                        'Información de $med',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      child: FutureBuilder(
+                        future: Supabase.instance.client
+                                .from('EcoFarmacias')
+                                .select().eq('SKU', med),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.done) {
+                            if (snapshot.hasError) {
+                              return Text('Error: ${snapshot.error}');
+                            } else if (snapshot.hasData) {
+                              final data = snapshot.data as List;
+                                this.med = data[0]['Nombre'];
+                              return Text(
+                                'Buscar Medicamento ${data[0]['Nombre']}',
+                                style: TextStyle(fontSize: 18, color: Colors.white),
+                              );
+                            }
+                          }
+                          return const CircularProgressIndicator();
+                        },
                       ),
+                      onPressed: () async {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Medicina(med)),
+                        );
+                      },
                      ),
                    ),
                 ],
