@@ -12,7 +12,7 @@ class Medicina extends StatelessWidget {
     final gemini = Gemini.instance;
     return Scaffold(
       body: FutureBuilder(
-        future: gemini.text('Para qué sirve $nombre en sólo 25 caracteres').then((value) => value?.output ?? 'No se encontró la descripción'), // Cambiar la descripción
+        future: gemini.text('Para qué sirve $nombre en sólo 35 caracteres').then((value) => value?.output ?? 'No se encontró la descripción'), // Cambiar la descripción
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
@@ -23,7 +23,7 @@ class Medicina extends StatelessWidget {
                 children: [
                   Text('Nombre: $nombre'),
                   Text('¿Para qué sirve?: $composition'),
-                  FutureBuilder(future: gemini.text('Sugerencias para el consumo de $nombre en sólo 25 caracteres').then((value) => value?.output ?? 'No se encontraron las sugerencias de $nombre'), 
+                  FutureBuilder(future: gemini.text('Sugerencias para el consumo de $nombre en sólo 35 caracteres').then((value) => value?.output ?? 'No se encontraron las sugerencias de $nombre'), 
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
                       if (snapshot.hasError) {
