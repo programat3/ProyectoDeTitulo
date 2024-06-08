@@ -1,12 +1,13 @@
+import 'package:botiquin_electronico/internal.dart';
 import 'package:botiquin_electronico/medicamento/lectura.dart';
-import 'package:botiquin_electronico/medicamento/medicamento_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 
 class Medicina extends StatelessWidget {
   final String nombre;
-  const Medicina(this.nombre,{super.key});
+  final bool buscado;
+  const Medicina(this.nombre, this.buscado,{super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +95,9 @@ class Medicina extends StatelessWidget {
           },
         ),
       ),
+    bottomNavigationBar: Visibility(visible: buscado,child: ElevatedButton(child: Text('Añadir al botiquín'), onPressed: () {
+      bot.add(nombre);
+    },)),
     );
   }
 }

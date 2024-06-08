@@ -1,10 +1,9 @@
+import 'package:botiquin_electronico/botiquin/botiquin.dart';
 import 'package:botiquin_electronico/keys.dart';
 import 'package:botiquin_electronico/medicamento/medicamento_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'users/login.dart';
-import 'users/signup.dart';
 
 Future<void> main() async {
   await Supabase.initialize(
@@ -62,7 +61,7 @@ class MyApp extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const SignUp()),
+                              builder: (context) => const Botiquin()),
                         );
                       },
                       style: ElevatedButton.styleFrom(
@@ -75,33 +74,7 @@ class MyApp extends StatelessWidget {
                         side: BorderSide(color: Colors.white, width: 2),
                       ),
                       child: Text(
-                        'Registrarse',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 10), // Espacio entre los botones
-                  SizedBox(
-                    width: 200, // Ancho máximo
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Login()),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 16,
-                            horizontal:
-                                20), // Ajusta los valores de padding según sea necesario
-                        backgroundColor: Color(0xFF2879C2),
-                        elevation: 0,
-                        side: BorderSide(color: Colors.white, width: 2),
-                      ),
-                      child: Text(
-                        'Iniciar Sesión',
+                        'Tus Medicamentos',
                         style: TextStyle(fontSize: 18, color: Colors.white),
                       ),
                     ),

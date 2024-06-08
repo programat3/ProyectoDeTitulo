@@ -22,7 +22,6 @@ class _LecturaState extends State<Lectura> {
   bool isAndroid = true;
 
   String? _newVoiceText;
-  int? _inputLength;
 
 
   @override

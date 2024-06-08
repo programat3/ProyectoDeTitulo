@@ -145,7 +145,7 @@ class _MedicamentoSKUState extends State<MedicamentoSKU> {
                             Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Medicina(med)),
+                                builder: (context) => Medicina(med,true)),
                           );
                           } 
                         },
