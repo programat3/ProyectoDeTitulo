@@ -1,3 +1,4 @@
+import 'package:botiquin_electronico/main.dart';
 import 'package:botiquin_electronico/medicamento/medicamentoEscaneado.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -23,6 +24,13 @@ class _MedicamentoSKUState extends State<MedicamentoSKU> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
+      onPopInvoked: (didPop){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MyApp()),
+        );
+      
+      },
       child: Scaffold(
         body: Container(
           decoration: BoxDecoration(
@@ -113,11 +121,18 @@ class _MedicamentoSKUState extends State<MedicamentoSKU> {
                             if (snapshot.connectionState == ConnectionState.done) {
                               if (snapshot.hasError) {
                                 return Text('Error: ${snapshot.error}');
-                              } else if (snapshot.hasData) {
+                              } else if (snapshot.hasData && snapshot.data != null && snapshot.data!.isNotEmpty) {
                                 final data = snapshot.data as List;
                                   this.med = data[0]['Nombre'];
                                 return Text(
                                   'Buscar Medicamento ${data[0]['Nombre']}',
+                                  style: TextStyle(fontSize: 18, color: Colors.white),
+                                );
+                              }
+                              else{
+                                med = '';
+                                return Text(
+                                  'No se encontró el medicamento',
                                   style: TextStyle(fontSize: 18, color: Colors.white),
                                 );
                               }
@@ -126,11 +141,13 @@ class _MedicamentoSKUState extends State<MedicamentoSKU> {
                           },
                         ),
                         onPressed: () async {
-                          Navigator.push(
+                          if(med != ''){
+                            Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => Medicina(med)),
                           );
+                          } 
                         },
                        ),
                      ),
