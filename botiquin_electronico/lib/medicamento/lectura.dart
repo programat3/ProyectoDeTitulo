@@ -12,7 +12,7 @@ class Lectura extends StatefulWidget {
 
 class _LecturaState extends State<Lectura> {
   late FlutterTts flutterTts;
-  String? language;
+  String language = 'es-ES';
   String? engine;
   double volume = 0.5;
   double pitch = 1.0;
@@ -41,10 +41,6 @@ class _LecturaState extends State<Lectura> {
       _getDefaultVoice();
     }
   }
-
-  Future<dynamic> _getLanguages() async => await flutterTts.getLanguages;
-
-  Future<dynamic> _getEngines() async => await flutterTts.getEngines;
 
   Future<void> _getDefaultEngine() async {
     var engine = await flutterTts.getDefaultEngine;
@@ -93,13 +89,6 @@ class _LecturaState extends State<Lectura> {
     return items;
   }
 
-  void changedEnginesDropDownItem(String? selectedEngine) async {
-    await flutterTts.setEngine(selectedEngine!);
-    language = null;
-    setState(() {
-      engine = selectedEngine;
-    });
-  }
 
   List<DropdownMenuItem<String>> getLanguageDropDownMenuItems(
       List<dynamic> languages) {
@@ -111,17 +100,6 @@ class _LecturaState extends State<Lectura> {
     return items;
   }
 
-  void changedLanguageDropDownItem(String? selectedType) {
-    setState(() {
-      language = selectedType;
-      flutterTts.setLanguage(language!);
-      if (isAndroid) {
-        flutterTts
-            .isLanguageInstalled(language!)
-            .then((value) => isCurrentLanguageInstalled = (value as bool));
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,10 +113,6 @@ class _LecturaState extends State<Lectura> {
           child: Column(
             children: [
               _btnSection(),
-              _engineSection(),
-              _futureBuilder(),
-              _buildSliders(),
-              if (isAndroid) _getMaxSpeechInputLengthSection(),
             ],
           ),
         ),
@@ -146,32 +120,6 @@ class _LecturaState extends State<Lectura> {
     );
   }
 
-  Widget _engineSection() {
-    if (isAndroid) {
-      return FutureBuilder<dynamic>(
-          future: _getEngines(),
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            if (snapshot.hasData) {
-              return _enginesDropDownSection(snapshot.data as List<dynamic>);
-            } else if (snapshot.hasError) {
-              return Text('Error loading engines...');
-            } else
-              return Text('Loading engines...');
-          });
-    } else
-      return Container(width: 0, height: 0);
-  }
-
-  Widget _futureBuilder() => FutureBuilder<dynamic>(
-      future: _getLanguages(),
-      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        if (snapshot.hasData) {
-          return _languageDropDownSection(snapshot.data as List<dynamic>);
-        } else if (snapshot.hasError) {
-          return Text('Error loading languages...');
-        } else
-          return Text('Loading Languages...');
-      });
 
 
   Widget _btnSection() {
@@ -186,30 +134,6 @@ class _LecturaState extends State<Lectura> {
       ),
     );
   }
-
-  Widget _enginesDropDownSection(List<dynamic> engines) => Container(
-        padding: EdgeInsets.only(top: 50.0),
-        child: DropdownButton(
-          value: engine,
-          items: getEnginesDropDownMenuItems(engines),
-          onChanged: changedEnginesDropDownItem,
-        ),
-      );
-
-  Widget _languageDropDownSection(List<dynamic> languages) => Container(
-      padding: EdgeInsets.only(top: 10.0),
-      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        DropdownButton(
-          value: language,
-          items: getLanguageDropDownMenuItems(languages),
-          onChanged: changedLanguageDropDownItem,
-        ),
-        Visibility(
-          visible: isAndroid,
-          child: Text("Is installed: $isCurrentLanguageInstalled"),
-        ),
-      ]));
-
   Column _buildButtonColumn(Color color, Color splashColor, IconData icon,
       String label, Function func) {
     return Column(
@@ -231,21 +155,6 @@ class _LecturaState extends State<Lectura> {
         ]);
   }
 
-  Widget _getMaxSpeechInputLengthSection() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        ElevatedButton(
-          child: Text('Get max speech input length'),
-          onPressed: () async {
-            _inputLength = await flutterTts.getMaxSpeechInputLength;
-            setState(() {});
-          },
-        ),
-        Text("$_inputLength characters"),
-      ],
-    );
-  }
 
   Widget _buildSliders() {
     return Column(
