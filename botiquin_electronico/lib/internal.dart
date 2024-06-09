@@ -42,7 +42,6 @@ class BotiquinClass with ChangeNotifier {
   void remove(String item) async{
     final prefs = await SharedPreferences.getInstance();
     final List<String> meds = prefs.getStringList('botiquin') ?? [];
-    int index = meds.indexOf(item);
     meds.remove(item);
     prefs.setStringList('botiquin', meds);
     cargar();
