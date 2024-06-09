@@ -97,6 +97,7 @@ class Medicina extends StatelessWidget {
       ),
     bottomNavigationBar: Visibility(visible: buscado,child: ElevatedButton(child: Text('Añadir al botiquín'), onPressed: () {
       bot.add(nombre);
+      Navigator.pop(context);
     },)),
     );
   }

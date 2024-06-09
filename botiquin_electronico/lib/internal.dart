@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class BotiquinClass with ChangeNotifier {
   final List<String> _medicamentos = [];
-  
+
   List<String> get items => _medicamentos;
 
   int length() {
@@ -23,7 +23,8 @@ class BotiquinClass with ChangeNotifier {
 
   List<String> get(){
     cargar();
-    return _medicamentos;
+    var all_meds = _medicamentos;
+    return all_meds;
   }
 
 
@@ -33,7 +34,6 @@ class BotiquinClass with ChangeNotifier {
     if(!meds.contains(item)){
       meds.add(item);
       prefs.setStringList('botiquin', meds);
-      print('Añadido');
       cargar();
     }
     notifyListeners();
@@ -42,6 +42,7 @@ class BotiquinClass with ChangeNotifier {
   void remove(String item) async{
     final prefs = await SharedPreferences.getInstance();
     final List<String> meds = prefs.getStringList('botiquin') ?? [];
+    int index = meds.indexOf(item);
     meds.remove(item);
     prefs.setStringList('botiquin', meds);
     cargar();

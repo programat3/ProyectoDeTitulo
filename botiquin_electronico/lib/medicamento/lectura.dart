@@ -60,6 +60,7 @@ class _LecturaState extends State<Lectura> {
     await flutterTts.setVolume(volume);
     await flutterTts.setSpeechRate(rate);
     await flutterTts.setPitch(pitch);
+    await flutterTts.setLanguage(language);
 
     if (_newVoiceText != null) {
       if (_newVoiceText!.isNotEmpty) {
@@ -82,17 +83,6 @@ class _LecturaState extends State<Lectura> {
       List<dynamic> engines) {
     var items = <DropdownMenuItem<String>>[];
     for (dynamic type in engines) {
-      items.add(DropdownMenuItem(
-          value: type as String?, child: Text((type as String))));
-    }
-    return items;
-  }
-
-
-  List<DropdownMenuItem<String>> getLanguageDropDownMenuItems(
-      List<dynamic> languages) {
-    var items = <DropdownMenuItem<String>>[];
-    for (dynamic type in languages) {
       items.add(DropdownMenuItem(
           value: type as String?, child: Text((type as String))));
     }
