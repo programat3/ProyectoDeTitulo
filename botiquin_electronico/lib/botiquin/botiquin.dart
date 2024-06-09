@@ -28,14 +28,25 @@ class _BotiquinState extends State<Botiquin> {
               itemCount: bot.length(),
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(bot.get()[index]),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Medicina(bot.get()[index], false)),
-                    );
-                  },
-                );
+                  title: Row(
+                      children: [
+                        SizedBox(width: MediaQuery.of(context).size.width*0.7,child: Text(bot.get()[index])),
+                        IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        bot.remove(bot.get()[index]);
+                      },
+                    )
+                      ],
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Medicina(bot.get()[index], false)),
+                      );
+                    },
+                  );
+
               },
             ),
             child: Column(
@@ -44,7 +55,17 @@ class _BotiquinState extends State<Botiquin> {
                 itemCount: bot.length(),
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text(bot.get()[index]),
+                    title: Row(
+                      children: [
+                        Text(bot.get()[index]),
+                        IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        bot.remove(bot.get()[index]);
+                      },
+                    )
+                      ],
+                    ),
                     onTap: () {
                       Navigator.push(
                         context,
