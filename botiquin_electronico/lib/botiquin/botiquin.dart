@@ -6,6 +6,7 @@ import 'package:csv/csv.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+import 'package:botiquin_electronico/medicamento/medicamento_scanner.dart';
 
 class Botiquin extends StatefulWidget {
   const Botiquin({Key? key}) : super(key: key);
@@ -57,15 +58,6 @@ class _BotiquinState extends State<Botiquin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tu Botiquín'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.picture_as_pdf),
-            onPressed: exportarPDF,
-          ),
-        ],
-      ),
       body: Container(
         decoration: const BoxDecoration(
           color: Color(0xFF2879C2), // Color de fondo azul
@@ -78,17 +70,18 @@ class _BotiquinState extends State<Botiquin> {
               margin: const EdgeInsets.all(20.0),
               padding: const EdgeInsets.all(20.0),
               decoration: BoxDecoration(
-                color: const Color(0xFFF2E0D7), // Color de fondo azul claro
+                color:
+                    Color.fromARGB(255, 255, 255, 255), // Color de fondo blanco
                 borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(color: Colors.white, width: 2),
+                border: Border.all(color: Color(0xFF1E2952), width: 2),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'Botiquín Electrónico',
+                    'Bienvenido a tu Botiquín',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -96,7 +89,7 @@ class _BotiquinState extends State<Botiquin> {
                   Visibility(
                     visible: bot.length() > 0,
                     replacement: const Center(
-                      child: Text('No hay medicamentos en el botiquín'),
+                      child: Text('Agrega Tu primer Medicamento'),
                     ),
                     child: Expanded(
                       child: ListenableBuilder(
@@ -133,6 +126,61 @@ class _BotiquinState extends State<Botiquin> {
                             );
                           },
                         ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20), // Espacio entre lista y botones
+                  SizedBox(
+                    width:
+                        250, // Ancho máximo ajustado para botones más grandes
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MedicamentoSKU()),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 24, // Aumento del padding vertical
+                          horizontal: 24, // Aumento del padding horizontal
+                        ),
+                        backgroundColor: const Color(0xFF2879C2),
+                        elevation: 0,
+                      ),
+                      child: const Text(
+                        'Agregar Medicina',
+                        style: TextStyle(
+                          fontSize: 22,
+                          color: Colors.white,
+                        ), // Aumento del tamaño de fuente
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20), // Espacio entre botones
+                  SizedBox(
+                    width: 250, // Ancho del botón de exportar PDF
+                    child: ElevatedButton(
+                      onPressed: exportarPDF,
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 24,
+                          horizontal: 24,
+                        ),
+                        backgroundColor: Colors.white,
+                        elevation: 0,
+                        side: const BorderSide(
+                          color: Color(0xFF2879C2),
+                          width: 2,
+                        ),
+                      ),
+                      child: const Text(
+                        'Compartir Botiquín',
+                        style: TextStyle(
+                          fontSize: 22,
+                          color: Color(0xFF2879C2),
+                        ), // Aumento del tamaño de fuente
                       ),
                     ),
                   ),
