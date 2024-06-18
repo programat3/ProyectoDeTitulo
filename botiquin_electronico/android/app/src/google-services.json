@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "229107051885",
+    "project_id": "botiquinelectronico",
+    "storage_bucket": "botiquinelectronico.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:229107051885:android:011037dd5624b19cbe3e64",
+        "android_client_info": {
+          "package_name": "com.example.botiquin_electronico"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQx7mVPI8Lv8YJ-ZJt_soQgf262duvQ-c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
