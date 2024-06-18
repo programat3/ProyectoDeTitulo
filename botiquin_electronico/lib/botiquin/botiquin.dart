@@ -1,9 +1,7 @@
 import 'package:botiquin_electronico/medicamento/medicamentoEscaneado.dart';
 import 'package:flutter/material.dart';
 import 'package:botiquin_electronico/internal.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:csv/csv.dart';
-import 'package:pdf/pdf.dart';
+import 'package:flutter/widgets.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:botiquin_electronico/medicamento/medicamento_scanner.dart';
@@ -42,8 +40,6 @@ class _BotiquinState extends State<Botiquin> {
                   itemCount: bot.length(),
                   itemBuilder: (context, index) {
                     return pw.Text('${bot.get()[index]}');
-
-                    
                   },
                 ),
               ],
@@ -88,45 +84,48 @@ class _BotiquinState extends State<Botiquin> {
                     ),
                   ),
                   const SizedBox(height: 20), // Espacio entre texto y botones
-                  Visibility(
-                    visible: bot.length() > 0,
-                    replacement: const Center(
-                      child: Text('Agrega Tu primer Medicamento'),
-                    ),
-                    child: Expanded(
-                      child: ListenableBuilder(
-                        listenable: bot,
-                        builder: (context, child) => ListView.builder(
-                          itemCount: bot.length(),
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              title: Row(
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      bot.get()[index],
-                                      overflow: TextOverflow.ellipsis,
+                  ListenableBuilder(
+                    listenable: bot,
+                    builder:(context, child) => Visibility(
+                      visible: bot.length() > 0,
+                      replacement: const Center(
+                        child: Text('Agrega Tu primer Medicamento'),
+                      ),
+                      child: Expanded(
+                        child: ListenableBuilder(
+                          listenable: bot,
+                          builder: (context, child) => ListView.builder(
+                            itemCount: bot.length(),
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                title: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        bot.get()[index],
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(Icons.delete),
-                                    onPressed: () {
-                                      bot.remove(bot.get()[index]);
-                                    },
-                                  )
-                                ],
-                              ),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        Medicina(bot.get()[index], false),
-                                  ),
-                                );
-                              },
-                            );
-                          },
+                                    IconButton(
+                                      icon: const Icon(Icons.delete),
+                                      onPressed: () {
+                                        bot.remove(bot.get()[index]);
+                                      },
+                                    )
+                                  ],
+                                ),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          Medicina(bot.get()[index], false),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),
